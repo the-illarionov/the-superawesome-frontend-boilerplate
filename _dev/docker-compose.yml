@@ -64,10 +64,13 @@ services:
     tests-e2e:
         image: ${PLAYWRIGHT_IMAGE}
         working_dir: /e2e
+        depends_on:
+            - frontend
+            - backend
         ipc: host
         volumes:
             - ../frontend:/e2e
-        command: /bin/sh -c "yarn test:e2e && yarn test:e2e:report"
+        command: yarn test:e2e:report
         ports:
             - "${E2E_TEST_UI_PORT}:80"
 
