@@ -2,9 +2,13 @@ import express from "express"
 
 const app = express()
 
-app.get("/", (req, res) => {
+app.get("/api/user", (req, res) => {
+	res.json({
+		name: "Alex",
+		role: "Developer",
+	})
+
 	console.log(req)
-	res.send("hello")
 })
 
 app.listen(80, () => {

@@ -40,7 +40,9 @@ const config: PlaywrightTestConfig = {
 		trace: 'on-first-retry',
 
 		/* Only on CI systems run the tests headless */
-		headless: true
+		headless: true,
+
+		testIdAttribute: 'data-test'
 	},
 
 	/* Configure projects for major browsers */
