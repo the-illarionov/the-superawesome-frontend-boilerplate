@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+    #
+    #
+    # BACKEND
+    backend:
+        image: backend-dev
+        working_dir: /home/node/app
+        command: npm run dev
+        networks:
+            - development
+        volumes:
+            - ../backend:/home/node/app
+
+    #
+    #
+    # TESTS
+    backend-tests-unit:
+        image: unit-tests-ui
+        working_dir: /home/node/app
+        command: npm run test:unit:ui
+        ports:
+            - "${BACKEND_UNIT_TEST_UI_PORT}:80"
+        networks:
+            - development
+        volumes:
+            - ../backend:/home/node/app
+
+    #
+    #
+    # PROXY
+    proxy:
+        image: ${NGINX_IMAGE}
+        ports:
+            - "443:443"
+        volumes:
+            - ../_dev/tests.html:/var/www/__tests/index.html
+            - ../proxy/_dev/templates:/etc/nginx/templates
+            - ../_dev/keys/${LOCAL_HOST}.pem:/etc/cert/cert.pem
+            - ../_dev/keys/${LOCAL_HOST}-key.pem:/etc/cert/key.pem
+        depends_on:
+            - frontend
+            - backend
+        networks:
+            - development
+
+networks:
+    development:
+        name: "network_development"
+        driver: "bridge"

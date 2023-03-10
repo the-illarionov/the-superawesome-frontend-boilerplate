@@ -1,0 +1,41 @@
+version: "3"
+
+dotenv: [".env"]
+
+tasks:
+    env:
+        desc: makes .env from .env.example
+        cmds:
+            - cp .env.example .env
+
+    init:
+        desc: prepare all services for development
+        cmds:
+            - mkcert -install
+            - mkcert $LOCAL_HOST
+            - rm -rf keys; mkdir keys; mv $LOCAL_HOST.pem keys/$LOCAL_HOST.pem; mv ${LOCAL_HOST}-key.pem keys/${LOCAL_HOST}-key.pem
+            - chmod o+r keys/${LOCAL_HOST}-key.pem
+
+            - docker build -t unit-tests-ui - < $(pwd)/../unit-tests-ui/Dockerfile --build-arg NODE_IMAGE
+            - docker build -t backend-dev - < $(pwd)/../backend/Dockerfile.dev --build-arg NODE_IMAGE
+
+            - docker pull $NODE_IMAGE
+            - docker pull $NGINX_IMAGE
+            - docker pull $PLAYWRIGHT_IMAGE
+
+            - task backend:yarn
+
+    up:
+        desc: start services in development mode
+        cmds:
+            - docker compose up
+
+    down:
+        desc: stops services in development mode
+        cmds:
+            - docker compose down
+
+    backend:yarn:
+        desc: runs 'yarn' on backend with optional arguments (use it like "task backend:yarn -- add vue")
+        cmds:
+            - docker run -v $(pwd)/../backend:/home/node/app --rm $NODE_IMAGE /bin/sh -c "cd /home/node/app && yarn {{.CLI_ARGS }}"

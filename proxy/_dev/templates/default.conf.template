@@ -1,0 +1,20 @@
+server {
+    server_name _;
+	index index.html index.php;
+	error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	ssl_certificate /etc/cert/cert.pem;
+	ssl_certificate_key /etc/cert/key.pem;
+
+	location /api {
+		proxy_pass http://backend;
+	}
+
+	location /__tests {
+		root /var/www;
+	}
+}

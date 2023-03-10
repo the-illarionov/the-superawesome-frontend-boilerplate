@@ -1,0 +1,5 @@
+ARG NODE_IMAGE
+
+FROM ${NODE_IMAGE}
+
+RUN apk update && apk add lsof
