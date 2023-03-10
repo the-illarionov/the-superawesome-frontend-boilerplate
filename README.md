@@ -2,8 +2,9 @@
 
 ## Requirements
 
-the only software requirements: [docker](https://www.docker.com/), [taskfile](https://taskfile.dev/), [mkcert](https://github.com/FiloSottile/mkcert)
-no node, no db, nothing else is needed, evertything is containerized
+the only software requirements: [docker](https://www.docker.com/), [taskfile](https://taskfile.dev/), [mkcert](https://github.com/FiloSottile/mkcert), [XState for VS Code](https://marketplace.visualstudio.com/items?itemName=statelyai.stately-vscode) (optional)
+
+nothing else is needed, evertything is containerized (you don't even need nodejs installed!)
 
 ## Stack
 

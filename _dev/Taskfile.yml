@@ -11,31 +11,91 @@ tasks:
     init:
         desc: prepare all services for development
         cmds:
+            # HTTPS
             - mkcert -install
             - mkcert $LOCAL_HOST
             - rm -rf keys; mkdir keys; mv $LOCAL_HOST.pem keys/$LOCAL_HOST.pem; mv ${LOCAL_HOST}-key.pem keys/${LOCAL_HOST}-key.pem
             - chmod o+r keys/${LOCAL_HOST}-key.pem
 
+            # BUILD CUSTOM IMAGES
             - docker build -t unit-tests-ui - < $(pwd)/../unit-tests-ui/Dockerfile --build-arg NODE_IMAGE
             - docker build -t backend-dev - < $(pwd)/../backend/Dockerfile.dev --build-arg NODE_IMAGE
 
+            # PULL OFFICIAL IMAGES
             - docker pull $NODE_IMAGE
             - docker pull $NGINX_IMAGE
             - docker pull $PLAYWRIGHT_IMAGE
 
+            # INSTALL NODE_MODULES
             - task backend:yarn
+            - task frontend:yarn
+
+            # FINAL
+            - echo -e "\033[0;35mtask:init completed!\033[0;0m"
 
     up:
         desc: start services in development mode
         cmds:
-            - docker compose up
+            - docker compose up -d
 
     down:
         desc: stops services in development mode
         cmds:
             - docker compose down
 
+    restart:
+        desc: restart services in development mode
+        cmds:
+            - task down
+            - task up
+
+    #
+    #
+    # BACKEND
     backend:yarn:
         desc: runs 'yarn' on backend with optional arguments (use it like "task backend:yarn -- add vue")
         cmds:
             - docker run -v $(pwd)/../backend:/home/node/app --rm $NODE_IMAGE /bin/sh -c "cd /home/node/app && yarn {{.CLI_ARGS }}"
+
+    backend:build:
+        desc: creates a production build of backend
+        cmds:
+            - docker run -v $(pwd)/../backend:/home/node/app --rm $NODE_IMAGE /bin/sh -c "cd /home/node/app && yarn build"
+
+    #
+    #
+    # FRONTEND
+    frontend:yarn:
+        desc: runs 'yarn' on frontend with optional arguments (use it like "task frontend:yarn -- add vue")
+        cmds:
+            - docker run -v $(pwd)/../frontend:/home/node/app --rm $NODE_IMAGE /bin/sh -c "cd /home/node/app && yarn {{.CLI_ARGS }}"
+
+    frontend:build:
+        desc: creates a production build of frontend with SSG (must be used for testing purpose only, use "frontend:build" from /_prod/Taskfile.yml for production)
+        cmds:
+            - docker run -v $(pwd)/../frontend:/home/node/app --rm $NODE_IMAGE /bin/sh -c "cd /home/node/app && yarn build"
+
+    #
+    #
+    # TEST
+    test:
+        desc: runs all tests
+        cmds:
+            - task test:backend
+            - task test:frontend
+            - task test:e2e
+
+    test:backend:
+        desc: runs unit tests on backend
+        cmds:
+            - docker run -v $(pwd)/../backend:/home/node/app -w /home/node/app --rm $NODE_IMAGE npm run test:unit
+
+    test:frontend:
+        desc: runs unit tests on frontend
+        cmds:
+            - docker run -v $(pwd)/../frontend:/home/node/app -w /home/node/app --rm $NODE_IMAGE npm run test:unit
+
+    test:e2e:
+        desc: runs e2e tests
+        cmds:
+            - docker run --rm --network=host -v $(pwd)/../frontend:/e2e -w /e2e --ipc=host $PLAYWRIGHT_IMAGE npm run test:e2e

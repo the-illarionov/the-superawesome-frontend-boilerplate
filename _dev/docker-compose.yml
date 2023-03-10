@@ -3,11 +3,34 @@ version: "3.9"
 services:
     #
     #
+    # FRONTEND
+    frontend:
+        image: ${NODE_IMAGE}
+        working_dir: /home/node/app
+        command: yarn dev
+        networks:
+            - development
+        volumes:
+            - ../frontend:/home/node/app
+
+    frontend-preview:
+        image: ${NODE_IMAGE}
+        working_dir: /home/node/app
+        command: yarn preview
+        ports:
+            - "${PREVIEW_PORT}:80"
+        networks:
+            - development
+        volumes:
+            - ../frontend:/home/node/app
+
+    #
+    #
     # BACKEND
     backend:
         image: backend-dev
         working_dir: /home/node/app
-        command: npm run dev
+        command: yarn dev
         networks:
             - development
         volumes:
@@ -16,16 +39,37 @@ services:
     #
     #
     # TESTS
+    frontend-tests-unit:
+        image: unit-tests-ui
+        working_dir: /home/node/app
+        command: yarn test:unit:ui
+        ports:
+            - "${FRONTEND_UNIT_TEST_UI_PORT}:80"
+        networks:
+            - development
+        volumes:
+            - ../frontend:/home/node/app
+
     backend-tests-unit:
         image: unit-tests-ui
         working_dir: /home/node/app
-        command: npm run test:unit:ui
+        command: yarn test:unit:ui
         ports:
             - "${BACKEND_UNIT_TEST_UI_PORT}:80"
         networks:
             - development
         volumes:
             - ../backend:/home/node/app
+
+    tests-e2e:
+        image: ${PLAYWRIGHT_IMAGE}
+        working_dir: /e2e
+        ipc: host
+        volumes:
+            - ../frontend:/e2e
+        command: /bin/sh -c "yarn test:e2e && yarn test:e2e:report"
+        ports:
+            - "${E2E_TEST_UI_PORT}:80"
 
     #
     #
