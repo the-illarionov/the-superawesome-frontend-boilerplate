@@ -22,9 +22,14 @@ export default defineConfig({
 			]
 		})
 	],
+	// https://github.com/antfu/vite-ssg/blob/main/src/types.ts
 	ssgOptions: {
-		// https://github.com/antfu/vite-ssg/blob/main/src/types.ts
-		formatting: 'minify'
+		formatting: 'minify',
+
+		// https://github.com/antfu/vite-ssg#custom-routes-to-render
+		includedRoutes(paths, routes) {
+			return ['/']
+		}
 	},
 	resolve: {
 		alias: {
