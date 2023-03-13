@@ -12,4 +12,6 @@ fetch('/api/user')
 	<RouterView />
 </template>
 
-<style module></style>
+<style>
+@import './App.css';
+</style>

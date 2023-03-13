@@ -13,9 +13,9 @@ Vue 3, Vite, Xstate for state management, Vitest for Unit tests, Playwright for 
 Additional features:
 
 -   TypeScript
--   UnoCSS for CSS
+-   UnoCSS for CSS ([default preset is used](https://github.com/unocss/unocss/tree/main/packages/preset-uno), [Material Design Icons Preinstalled](https://pictogrammers.com/library/mdi/))
 -   github/netlify CI/CD pipeline
--   Live monitoring for all of your tests (#todo: image)
+-   Live monitoring for all of your tests on "/\_\_tests/" (#todo: image)
 -   SSG powered by [Vite SSG](https://github.com/antfu/vite-ssg)
 
 ## How to start
