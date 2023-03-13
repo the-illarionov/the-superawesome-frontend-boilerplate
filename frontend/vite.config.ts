@@ -1,3 +1,5 @@
+/// <reference types="vite-ssg" />
+
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -20,6 +22,10 @@ export default defineConfig({
 			]
 		})
 	],
+	ssgOptions: {
+		// https://github.com/antfu/vite-ssg/blob/main/src/types.ts
+		formatting: 'minify'
+	},
 	resolve: {
 		alias: {
 			'@': fileURLToPath(new URL('./src', import.meta.url))

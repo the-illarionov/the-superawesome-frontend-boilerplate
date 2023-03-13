@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 
-fetch('/api/user')
+/* fetch('https://localhost/api/user')
 	.then((r) => r.json())
 	.then((r) => {
 		console.log(r)
-	})
+	}) */
 </script>
 
 <template>
