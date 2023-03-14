@@ -2,6 +2,7 @@ import express from "express"
 
 const app = express()
 
+// @ts-ignore
 app.get("/api/user", (req, res) => {
 	res.json({
 		name: "Alex",

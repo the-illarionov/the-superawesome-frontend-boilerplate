@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { api } from '@/services/api'
+/* import { api } from '@/services/api'
 
-const { data } = await api.get('/api/user')
+const { data } = await api.get('/api/user') */
 </script>
 
 <template>
-	{{ data }}
 	<div
 		data-test="greeting"
 		class="flex"
