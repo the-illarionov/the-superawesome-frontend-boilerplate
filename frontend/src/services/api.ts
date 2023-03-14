@@ -13,8 +13,13 @@ const useMyFetch = createFetch({
 	fetchOptions: {}
 })
 
-export const api = {
+const api = {
 	get(url: string) {
 		return useMyFetch(url).get().json()
+	},
+	post(url: string) {
+		return useMyFetch(url).post().json()
 	}
 }
+
+export { api, useMyFetch }
