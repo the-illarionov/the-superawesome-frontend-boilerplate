@@ -1,8 +1,4 @@
-<script setup lang="ts">
-/* import { api } from '@/services/api'
-
-const { data } = await api.get('/api/user') */
-</script>
+<script setup lang="ts"></script>
 
 <template>
 	<div

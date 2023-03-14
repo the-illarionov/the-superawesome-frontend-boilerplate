@@ -17,5 +17,3 @@ export const createApp = ViteSSG(
 		// install plugins etc.
 	}
 )
-
-// #TODO: https on preview

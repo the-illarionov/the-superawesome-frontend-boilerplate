@@ -21,7 +21,6 @@ server {
 	location /api {
 		proxy_pass http://backend;
 	}
-	# TODO: remove "/api" from backend
 
 	location /__tests {
 		root /var/www;
