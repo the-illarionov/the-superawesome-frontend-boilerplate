@@ -39,7 +39,7 @@ tasks:
     up:
         desc: start services in development mode
         cmds:
-            - docker compose up
+            - docker compose up -d
 
     down:
         desc: stops services in development mode
@@ -51,6 +51,11 @@ tasks:
         cmds:
             - task down
             - task up
+
+    logs:
+        desc: show and follow development logs
+        cmds:
+            - docker compose logs -f
 
     #
     #

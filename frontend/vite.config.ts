@@ -9,7 +9,7 @@ import presetIcons from '@unocss/preset-icons'
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
-	const LOCAL_HOST = loadEnv('development', process.cwd(), '').LOCAL_HOST
+	const env = loadEnv('development', process.cwd(), '')
 
 	return {
 		plugins: [
@@ -36,8 +36,8 @@ export default defineConfig(() => {
 		},
 		preview: {
 			https: {
-				key: `./keys/${LOCAL_HOST}-key.pem`,
-				cert: `./keys/${LOCAL_HOST}.pem`
+				key: `./keys/${env.LOCAL_HOST}-key.pem`,
+				cert: `./keys/${env.LOCAL_HOST}.pem`
 			}
 		},
 		resolve: {

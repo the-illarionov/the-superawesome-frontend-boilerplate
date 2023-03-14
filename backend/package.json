@@ -10,7 +10,7 @@
 		"build": "tsc && vite build --ssr src/main.ts",
 		"serve": "node dist/main.js",
 		"test:unit": "vitest run",
-		"test:unit:ui": "vitest --api.host 0.0.0.0 --api.port 80 --ui"
+		"test:unit:ui": "vitest --api.host 0.0.0.0 --api.port 8000 --ui"
 	},
 	"devDependencies": {
 		"@types/express": "^4.17.17",
