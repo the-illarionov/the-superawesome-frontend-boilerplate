@@ -9,6 +9,8 @@ import { test, expect, type Page } from '@playwright/test'
 import { createMachine } from 'xstate'
 import { createModel } from '@xstate/test'
 
+// #TODO: add "Logged" state and transitions
+
 const UserFlowMachine = createMachine({
   /** @xstate-layout N4IgpgJg5mDOIC5QFVZgE4DEA2B7A7gLICGAxgBYCWAdmAHQCS1EYAHgAQAKxMAxAOK447AC652AQQCuI8lx5gA2gAYAuolAAHXLEojKuahpCtEAZjrKAjAFYAbACYbAGhABPRAA4A7HW82AXyDXalwWeCQQVAwcAhIKGjBjbV19Q2NTBABaK08zVw8EZWCotCw8IjIqWkZmNnkYZJ09AyNIzJyzF3cvOzpAgNdo8riqxLppWQakyJSW9PbEBysATktbR27Czz6BoKA */
   id: 'UserFlowMachine',
