@@ -20,14 +20,14 @@ tasks:
             - chmod o+r keys/${LOCAL_HOST}-key.pem
             - cp -R keys ../frontend/keys
 
-            # BUILD CUSTOM IMAGES
-            - docker build -t unit-tests-ui - < $(pwd)/../unit-tests-ui/Dockerfile --build-arg NODE_IMAGE
-            - docker build -t backend-dev - < $(pwd)/../backend/Dockerfile.dev --build-arg NODE_IMAGE
-
             # PULL OFFICIAL IMAGES
             - docker pull $NODE_IMAGE
             - docker pull $NGINX_IMAGE
             - docker pull $PLAYWRIGHT_IMAGE
+
+            # BUILD CUSTOM IMAGES
+            - docker build -t unit-tests-ui - < $(pwd)/../unit-tests-ui/Dockerfile --build-arg NODE_IMAGE
+            - docker build -t backend-dev - < $(pwd)/../backend/Dockerfile.dev --build-arg NODE_IMAGE
 
             # INSTALL NODE_MODULES
             - task backend:yarn

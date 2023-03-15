@@ -37,3 +37,8 @@ task up
 ```
 
 That's all!
+
+## Attention
+
+To avoid permission collisions, all your node_modules are belong to docker root user. So you should use "task frontend:yarn -- add some-cool-library --dev" to install dependencies (it will create a container, mount 'frontend' directory and run 'yarn add' inside it).
+Everything is containerized, so you don't even need nodejs to be installed locally.

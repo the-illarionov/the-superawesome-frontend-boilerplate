@@ -1,3 +1,9 @@
+/*
+  It's one approach for e2e testing: you create separate machine from user perspective (i call it "frontend" machine), without any technical implementation details (which i call "backend" machines).
+  It lets you make separation of concerns. Also, this machine can be your cross-team communication tool between managers, designers etc.
+  But, of course, you can stick to the traditional approach with pure e2e tests. Or you can even create e2e tests for each of "backend" machines, not only "frontend" one.
+*/
+
 import { test, expect, type Page } from '@playwright/test'
 
 import { createMachine } from 'xstate'

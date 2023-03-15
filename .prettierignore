@@ -1,2 +1,3 @@
+# i don't know why, but xstate for vs code not working when i use prettier, so i had to ignore machine files (i've made an issue about this)
 *Machine.ts
 *Machine.spec.ts

@@ -10,6 +10,8 @@ import presetIcons from '@unocss/preset-icons'
 
 const env = loadEnv('development', process.cwd(), '')
 
+// #TODO: vite.dev.config + vite.prod.config
+
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
@@ -31,7 +33,7 @@ export default defineConfig({
 		formatting: 'minify',
 
 		includedRoutes() {
-			return ['/']
+			return ['/', '/auth']
 		}
 	},
 	preview: {

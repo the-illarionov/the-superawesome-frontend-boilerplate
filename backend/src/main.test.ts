@@ -3,9 +3,9 @@ import request from "supertest"
 
 describe("Test suite", () => {
 	it("Test case", async () => {
-		const response = await request(app).get("/api/user")
+		const response = await request(app).post("/api/login").send({ username: "foo", password: "bar" })
 
-		expect(response.body).toStrictEqual({ name: "Alex", role: "Developer" })
+		expect(response.body).toStrictEqual({ token: "some-auth-token" })
 	})
 })
 
