@@ -4,11 +4,10 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
 <template>
 	<DefaultLayout>
-		<h1
-			data-test="greeting"
-			class="color-green text-5xl"
-		>
-			<i class="i-mdi-human-greeting-variant"></i>Hello, World!
-		</h1>
+		<div>Auth page</div>
 	</DefaultLayout>
 </template>
+
+<style module>
+/* */
+</style>

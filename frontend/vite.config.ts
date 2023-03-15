@@ -5,6 +5,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
+import { presetUno } from 'unocss'
 import presetIcons from '@unocss/preset-icons'
 
 const env = loadEnv('development', process.cwd(), '')
@@ -15,6 +16,7 @@ export default defineConfig({
 		vue(),
 		UnoCSS({
 			presets: [
+				presetUno(),
 				presetIcons({
 					extraProperties: {
 						display: 'inline-block',
@@ -28,8 +30,7 @@ export default defineConfig({
 	ssgOptions: {
 		formatting: 'minify',
 
-		// https://github.com/antfu/vite-ssg#custom-routes-to-render
-		includedRoutes(paths, routes) {
+		includedRoutes() {
 			return ['/']
 		}
 	},
