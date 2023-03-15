@@ -6,7 +6,11 @@ import TheHeader from '@/components/TheHeader/TheHeader.vue'
 	<div>
 		<TheHeader>
 			<template #right>
-				<RouterLink :to="{ name: 'AuthPage' }">Login</RouterLink>
+				<RouterLink
+					data-test="router-link-auth-page"
+					:to="{ name: 'AuthPage' }"
+					>Login</RouterLink
+				>
 			</template>
 		</TheHeader>
 		<slot name="default"></slot>
