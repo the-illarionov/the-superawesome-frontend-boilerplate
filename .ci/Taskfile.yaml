@@ -1,0 +1,151 @@
+version: '3'
+
+dotenv: [.env]
+
+tasks:
+  env:
+    desc: makes .env from .env.example
+    cmds:
+      - cp .env.example .env
+      - cp .env.example ../frontend/.env.production.local
+      - cp .env.example ../backend/.env.production.local
+
+  init:
+    desc: pulls all docker images
+    cmds:
+      - docker pull $PLAYWRIGHT_IMAGE
+      - docker pull $NODE_IMAGE
+      - docker pull $NGINX_IMAGE
+      - task root:yarn
+
+  yarn:
+    desc: installs 'node_modules' in 'frontend' and 'backend'
+    cmds:
+      - task frontend:yarn
+      - task backend:yarn
+
+  build:
+    desc: creates production build of 'frontend' and 'backend'
+    cmds:
+      - task frontend:build
+      - task backend:build
+
+  up:
+    desc: start services
+    cmds:
+      - docker compose up -d
+
+  down:
+    desc: stops services
+    cmds:
+      - docker compose down
+
+    # ROOT
+  root:
+    desc: launch node with mounted root directory
+    cmds:
+      - |
+        docker run \
+          -it --rm \
+          -w /app \
+          -v $(pwd)/..:/app \
+          $NODE_IMAGE /bin/bash
+
+  root:yarn:
+    desc: runs 'yarn' in root directory
+    cmds:
+      - |
+        docker run \
+          --rm \
+          -w /app \
+          -v $(pwd)/..:/app \
+          $NODE_IMAGE /bin/bash -c "yarn {{.CLI_ARGS }}"
+
+  root:lint:
+    desc: runs 'lint' in root directory
+    cmds:
+      - |
+        docker run \
+          --rm \
+          -w /app \
+          -v $(pwd)/..:/app \
+          $NODE_IMAGE /bin/bash -c "yarn lint"
+
+  # FRONTEND
+  frontend:yarn:
+    desc: runs 'yarn' in 'frontend' directory
+    cmds:
+      - |
+        docker run \
+          --rm \
+          -w /app \
+          -v $(pwd)/../frontend:/app \
+          $NODE_IMAGE yarn
+
+  frontend:build:
+    desc: runs 'yarn build' with option to set env
+    cmds:
+      - |
+        docker run \
+          -w /app \
+          -v $(pwd)/../frontend:/app \
+          $NODE_IMAGE /bin/bash -c "{{.CLI_ARGS }} yarn build"
+
+  # BACKEND
+  backend:yarn:
+    desc: runs 'yarn' in 'backend' directory
+    cmds:
+      - |
+        docker run \
+          --rm \
+          -w /app \
+          -v $(pwd)/../backend:/app \
+          $NODE_IMAGE yarn
+
+  backend:build:
+    desc: runs 'yarn build' with option to set env
+    cmds:
+      - |
+        docker run \
+          -w /app \
+          -v $(pwd)/../backend:/app \
+          $NODE_IMAGE /bin/bash -c "{{.CLI_ARGS }} yarn build"
+
+  # TEST
+  test:
+    desc: runs all tests
+    cmds:
+      - task test:unit:frontend
+      - task test:unit:backend
+      - task test:e2e
+
+  test:e2e:
+    desc: runs Playwright
+    cmds:
+      - |
+        docker run \
+          --rm --network="host" \
+          -v $(pwd)/../frontend:/app \
+          -w /app \
+          $PLAYWRIGHT_IMAGE \
+          yarn test:e2e
+
+  test:unit:frontend:
+    desc: runs unit tests in frontend
+    cmds:
+      - |
+        docker run \
+          -v $(pwd)/../frontend:/app \
+          -w /app \
+          $NODE_IMAGE \
+          yarn test:unit
+
+  test:unit:backend:
+    desc: runs unit tests in backend
+    cmds:
+      - |
+        docker run \
+          -v $(pwd)/../backend:/app \
+          -w /app \
+          $NODE_IMAGE \
+          yarn test:unit

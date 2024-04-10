@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "SHELL=/bin/sh chokidar \"**/*.ts\" -i \"./node_modules/**\" -i \"**/*.test.*\" --initial -c \"npm run kill && npm run dev-serve\"",
+    "dev-serve": "vite-node src/main.ts",
+    "kill": "pid=$(lsof -t -i :80); if [ $pid ]; then kill $pid; fi",
+    "build": "tsc && vite build --ssr src/main.ts",
+    "serve": "node dist/main.js",
+    "test:unit": "vitest run",
+    "test:unit:ui": "vitest --api.host 0.0.0.0 --api.port 8000 --ui"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/supertest": "^6.0.2",
+    "@vitest/ui": "^1.4.0",
+    "chokidar-cli": "^3.0.0",
+    "supertest": "^6.3.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vite-node": "^1.4.0",
+    "vitest": "^1.4.0"
+  }
+}

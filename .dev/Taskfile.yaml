@@ -1,0 +1,197 @@
+version: '3'
+
+dotenv: [.env]
+
+vars:
+  MY_UID: $(id -u) # TODO: Change this line if you are not on Linux
+  MY_GID: $(id -g) # TODO: Change this line if you are not on Linux
+
+tasks:
+  env:
+    desc: makes .env from .env.example
+    cmds:
+      - cp .env.example .env
+      - cp .env.example ../frontend/.env.development.local
+      - cp .env.example ../backend/.env.development.local
+
+  init:
+    desc: prepare everything for development
+    cmds:
+      - task root:yarn
+      - task frontend:yarn
+      - task backend:yarn
+      - docker pull $PLAYWRIGHT_IMAGE
+      - docker pull $NGINX_IMAGE
+      - docker build -t backend-dev - < $(pwd)/../backend/Dockerfile.dev --build-arg NODE_IMAGE
+      - docker build -t unit-tests-ui - < $(pwd)/../unit-tests-ui/Dockerfile --build-arg NODE_IMAGE
+
+  up:
+    desc: start services
+    cmds:
+      - MY_UID="{{.MY_UID}}" MY_GID="{{.MY_GID}}" docker compose up -d
+
+  down:
+    desc: stops services
+    cmds:
+      - MY_UID="{{.MY_UID}}" MY_GID="{{.MY_GID}}" docker compose down
+
+  restart:
+    desc: restart services
+    cmds:
+      - task down
+      - task up
+
+  logs:
+    desc: logs the development compose
+    cmds:
+      - docker compose logs -f
+
+  # ROOT
+  root:
+    desc: launch node with mounted root directory
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          -it --rm \
+          -w /app \
+          -v $(pwd)/..:/app \
+          $NODE_IMAGE /bin/bash
+
+  root:yarn:
+    desc: runs 'yarn' in root directory
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          --rm \
+          -w /app \
+          -v $(pwd)/..:/app \
+          $NODE_IMAGE /bin/bash -c "yarn {{.CLI_ARGS }}"
+
+  root:lint:
+    desc: runs 'lint' in root directory
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          --rm \
+          -w /app \
+          -v $(pwd)/..:/app \
+          $NODE_IMAGE /bin/bash -c "yarn lint"
+
+  root:lint:fix:
+    desc: runs 'lint:fix' in root directory
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          --rm \
+          -w /app \
+          -v $(pwd)/..:/app \
+          $NODE_IMAGE /bin/bash -c "yarn lint:fix"
+
+  # BACKEND
+  backend:
+    desc: launch node with mounted 'backend' directory
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          -it --rm \
+          -w /app \
+          -v $(pwd)/../backend:/app \
+          $NODE_IMAGE /bin/bash
+
+  backend:yarn:
+    desc: runs 'yarn' in 'backend' directory (you can pass additional parameters like 'task backend:yarn -- add -D vue', which will be resulted in 'yarn add -D vue')
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          --rm \
+          -w /app \
+          -v $(pwd)/../backend:/app \
+          $NODE_IMAGE /bin/bash -c "yarn {{.CLI_ARGS }}"
+
+  backend:build:
+    desc: runs 'yarn build'
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          --rm \
+          -w /app \
+          -v $(pwd)/../backend:/app \
+          $NODE_IMAGE /bin/bash -c "yarn build"
+
+  # FRONTEND
+  frontend:
+    desc: launch node with mounted 'frontend' directory
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          -it --rm \
+          -w /app \
+          -v $(pwd)/../frontend:/app \
+          $NODE_IMAGE /bin/bash
+
+  frontend:yarn:
+    desc: runs 'yarn' in 'frontend' directory (you can pass additional parameters like 'task frontend:yarn -- add -D vue', which will be resulted in 'yarn add -D vue')
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          --rm \
+          -w /app \
+          -v $(pwd)/../frontend:/app \
+          $NODE_IMAGE /bin/bash -c "yarn {{.CLI_ARGS }}"
+
+  frontend:build:
+    desc: runs 'yarn build'
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          --rm \
+          -w /app \
+          -v $(pwd)/../frontend:/app \
+          -v $(pwd)/../.common:/home/node/.common \
+          $NODE_IMAGE /bin/bash -c "yarn build"
+
+  # TESTS
+  test:unit:frontend:
+    desc: runs unit tests in frontend
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          -v $(pwd)/../frontend:/app \
+          -w /app \
+          $NODE_IMAGE \
+          yarn test:unit
+
+  test:unit:backend:
+    desc: runs unit tests in backend
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          -v $(pwd)/../backend:/app \
+          -w /app \
+          $NODE_IMAGE \
+          yarn test:unit
+
+  test:e2e:
+    desc: runs Playwright
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          --rm --network="host" --ipc=host \
+          -v $(pwd)/../frontend:/app \
+          -w /app \
+          $PLAYWRIGHT_IMAGE \
+          yarn test:e2e
+
+  test:e2e:ui:
+    desc: runs Playwright in UI mode (works only in Linux)
+    # TODO: Please refer to https://www.oddbird.net/2022/11/30/headed-playwright-in-docker/ if you want to make it work on Windows or macOS
+    cmds:
+      - |
+        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+          --rm --network="host" --ipc=host \
+          -e DISPLAY=${DISPLAY} \
+          -v /tmp/.X11-unix:/tmp/.X11-unix \
+          -v $(pwd)/../frontend:/app \
+          -w /app \
+          $PLAYWRIGHT_IMAGE \
+          yarn test:e2e:ui
