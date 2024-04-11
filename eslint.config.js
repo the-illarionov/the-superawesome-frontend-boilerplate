@@ -20,10 +20,12 @@ export default antfu({
       singleline: 1,
       multiline: 1,
     }],
-    'vue/array-bracket-newline': ['error', 'always'],
-    'vue/array-element-newline': ['error', 'always'],
-    'vue/object-curly-newline': ['error', 'always'],
-    'vue/object-property-newline': ['error'],
+    'vue/array-bracket-newline': ['error', 'consistent'],
+    'vue/array-element-newline': ['error', 'consistent'],
+    'vue/object-curly-newline': ['error', { consistent: true }],
+    'vue/object-property-newline': ['error', {
+      allowAllPropertiesOnSameLine: true,
+    }],
     'vue/no-v-text-v-html-on-component': 'off',
 
     'vue/singleline-html-element-content-newline': ['error', {

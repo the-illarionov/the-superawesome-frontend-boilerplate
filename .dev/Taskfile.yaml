@@ -147,7 +147,6 @@ tasks:
           --rm \
           -w /app \
           -v $(pwd)/../frontend:/app \
-          -v $(pwd)/../.common:/home/node/.common \
           $NODE_IMAGE /bin/bash -c "yarn build"
 
   # TESTS
