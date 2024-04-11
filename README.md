@@ -1,6 +1,6 @@
 # The Superawesome Frontend Boilerplate
 
-My starter with tests, CI/CD, backend, styleguide - everything dockerized, don't even need nodejs locally!
+My Vue frontend starter with tests, CI/CD, backend - everything dockerized, don't even need nodejs locally! Also with a [styleguide](./frontend/) for large-scale frontend based on my experience
 
 The only requirements are [docker](https://www.docker.com/) and [taskfile](https://taskfile.dev/).
 
@@ -36,7 +36,7 @@ Test: [vitest](https://vitest.dev/) for unit, [playwright](https://playwright.de
 Lint: [eslint](https://eslint.org/) with [custom config](./eslint.config.js) (based on [antfu/eslint-config](https://github.com/antfu/eslint-config)) + [stylelint](https://stylelint.io/) with [custom config](./stylelint.config.js).
 
 ## Features
-- Styleguide for large-scale frontend based on my experience, [more here](./frontend/).
+- [Styleguide for large-scale frontend based on my experience](./frontend/).
 
 - [Live tests management panel](http://localhost/tests/).
 
