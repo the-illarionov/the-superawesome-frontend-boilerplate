@@ -22,8 +22,8 @@ tasks:
       - task backend:yarn
       - docker pull $PLAYWRIGHT_IMAGE
       - docker pull $NGINX_IMAGE
-      - docker build -t backend-dev - < $(pwd)/../backend/Dockerfile.dev --build-arg NODE_IMAGE
-      - docker build -t unit-tests-ui - < $(pwd)/../unit-tests-ui/Dockerfile --build-arg NODE_IMAGE
+      - docker build -t backend-dev - < ./Backend.Dockerfile --build-arg NODE_IMAGE
+      - docker build -t unit-tests-ui - < ./UnitTestUi.Dockerfile --build-arg NODE_IMAGE
 
   up:
     desc: start services
