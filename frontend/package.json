@@ -20,30 +20,30 @@
     "@xstate/vue": "^3.1.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
-    "xstate": "^5.9.1"
+    "xstate": "^5.10.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.43.0",
+    "@playwright/test": "^1.43.1",
     "@statelyai/inspect": "^0.2.5",
     "@tsconfig/node20": "^20.1.2",
     "@types/jsdom": "^21.1.6",
-    "@types/node": "^20.11.28",
-    "@unhead/vue": "^1.9.4",
+    "@types/node": "^20.12.7",
+    "@unhead/vue": "^1.9.5",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitest/ui": "^1.5.0",
     "@vue/test-utils": "^2.4.5",
     "@vue/tsconfig": "^0.5.1",
-    "@xstate/test": "^0.5.1",
+    "@xstate/test": "^1.0.0-beta.5",
     "autoprefixer": "^10.4.19",
     "critters": "^0.0.22",
     "jsdom": "^24.0.0",
     "npm-run-all2": "^6.1.2",
     "tailwindcss": "^3.4.3",
-    "typescript": "~5.4.0",
+    "typescript": "~5.4.5",
     "vite": "^5.1.6",
-    "vite-plugin-vue-devtools": "^7.0.18",
+    "vite-plugin-vue-devtools": "^7.0.27",
     "vite-ssg": "^0.23.6",
     "vitest": "^1.5.0",
-    "vue-tsc": "^2.0.6"
+    "vue-tsc": "^2.0.13"
   }
 }
