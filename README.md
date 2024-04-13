@@ -1,5 +1,8 @@
 # The Superawesome Frontend Boilerplate
 
+![deploy](https://github.com/the-illarionov/the-superawesome-frontend-boilerplate/actions/workflows/deploy.yml/badge.svg)
+![test-and-build](https://github.com/the-illarionov/the-superawesome-frontend-boilerplate/actions/workflows/test-and-build.yml/badge.svg)
+
 My Vue frontend starter with tests, CI/CD, backend - everything dockerized, don't even need nodejs locally! Also with a [styleguide](./frontend/) for large-scale frontend based on my experience
 
 The only requirements are [docker](https://www.docker.com/) and [taskfile](https://taskfile.dev/).

@@ -31,6 +31,8 @@
 
     Always work only with primitive values, composable shouldn't know about the form of the object.
 
+    First of all, it makes your code much more readable. And more importantly it makes writing unit tests so much easier.
+
     Bad:
     ```javascript
     function useSomething({ bigObject }) {
