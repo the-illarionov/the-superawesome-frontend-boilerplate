@@ -27,35 +27,7 @@
 
     Good: `function useSomething({ some, arguments, for, composable })`
 
-4. If composable takes a property of an object (especially if they are multiple), fight with temptation to pass the whole object as an argument.
-
-    Always work only with primitive values, composable shouldn't know about the form of the object.
-
-    First of all, it makes your code much more readable. And more importantly it makes writing unit tests so much easier.
-
-    Bad:
-    ```javascript
-    function useSomething({ bigObject }) {
-        // using bigObject.property
-        // using bigObject.anotherProperty
-    }
-
-    useSomething({ bigObject })
-    ```
-    Good:
-    ```javascript
-    function useSomething({ property, anotherProperty }) {
-        // using property
-        // using anotherProperty
-    }
-
-    useSomething({
-        property: bigObject.property,
-        anotherProperty: bigObject.anotherProperty
-    })
-    ```
-
-5. Always give specific names to what composable returns.
+4. Always give specific names to what composable returns.
 
     Bad:
     ```javascript

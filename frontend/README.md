@@ -22,7 +22,43 @@ It's not perfect, but it allows to grow the codebase with minimal cost.
 
     Another bonus is that it will let you easily search files by name.
 
-4. Always use [vueuse](https://vueuse.org/). Moreover, check [releases](https://github.com/vueuse/vueuse/releases) from time to time, because they add new stuff pretty often.
+4. Don't pass objects as arguments or props, fight with temptation to do it.
+
+    Always pass primitive values, composables and components shouldn't know about the form of the object.
+
+    First of all, it makes your code much more readable. And more importantly it makes writing unit tests sooooo much easier.
+
+    Bad:
+    ```javascript
+    function useSomething({ bigObject }) {
+        // using bigObject.property
+        // using bigObject.anotherProperty
+    }
+
+    useSomething({ bigObject })
+    ```
+    ```javascript
+    <ChildComponent :parent="parent" />
+    ```
+    Good:
+    ```javascript
+    function useSomething({ property, anotherProperty }) {
+        // using property
+        // using anotherProperty
+    }
+
+    useSomething({
+        property: bigObject.property,
+        anotherProperty: bigObject.anotherProperty
+    })
+    ```
+    ```javascript
+    <ChildComponent
+        :parent-property="parent.property"
+        :another-property="parent.another" />
+    ```
+
+5. Always use [vueuse](https://vueuse.org/). Moreover, check [releases](https://github.com/vueuse/vueuse/releases) from time to time, because they add new stuff pretty often.
 
 ## List of all guides
 
