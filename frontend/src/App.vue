@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import TheInitializationWrapper from './components/TheInitializationWrapper/TheInitializationWrapper.vue'
-
-const isDev = import.meta.env.DEV
 </script>
 
 <template>
@@ -19,14 +17,4 @@ const isDev = import.meta.env.DEV
       </div>
     </template>
   </Suspense>
-
-  <iframe
-    v-if="isDev"
-    id="stately-inspect"
-    class="absolute
-        bottom-0
-        left-0
-        h-[40vh]
-        w-full"
-  />
 </template>

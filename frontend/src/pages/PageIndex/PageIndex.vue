@@ -32,6 +32,7 @@ function sendUserInfoToMachineApp({ userInfo }: { userInfo: UserInfo }) {
       >
         <FormLogin
           v-if="machineApp.snapshot.value.hasTag('unauthorized')"
+          data-test="form-login"
           @logged="sendUserInfoToMachineApp"
         />
         <div

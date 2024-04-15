@@ -55,6 +55,8 @@ Lint: [eslint](https://eslint.org/) with [custom config](./eslint.config.js) (ba
 
   I am such a huge fan of it, I use it in every project. See an example of a login machine [here](./frontend/src/components/FormLogin/machines/).
 
+  Also check how XState can own e2e-testing [here](./frontend/e2e/).
+
   Invest your time into learning it, it's an absolute life changer.
 
 ## Known issues:
