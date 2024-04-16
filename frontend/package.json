@@ -18,7 +18,7 @@
   "dependencies": {
     "@vueuse/core": "^10.9.0",
     "@xstate/vue": "^3.1.1",
-    "vue": "^3.4.21",
+    "vue": "^3.4.22",
     "vue-router": "^4.3.0",
     "xstate": "^5.10.0"
   },
@@ -40,7 +40,7 @@
     "npm-run-all2": "^6.1.2",
     "tailwindcss": "^3.4.3",
     "typescript": "~5.4.5",
-    "vite": "^5.1.6",
+    "vite": "^5.2.9",
     "vite-plugin-vue-devtools": "^7.0.27",
     "vite-ssg": "^0.23.6",
     "vitest": "^1.5.0",

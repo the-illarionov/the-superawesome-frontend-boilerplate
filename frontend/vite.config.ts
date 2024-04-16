@@ -16,6 +16,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  // @ts-expect-error vitest
   test: {
     environment: 'jsdom',
     exclude: [...configDefaults.exclude, 'e2e/*'],
