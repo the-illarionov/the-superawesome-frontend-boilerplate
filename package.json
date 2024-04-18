@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix && stylelint '**/*.{vue,css}' --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.14.0",
+    "@antfu/eslint-config": "^2.15.0",
     "@kalimahapps/eslint-plugin-tailwind": "^1.0.10",
     "@stylistic/stylelint-config": "^1.0.1",
     "@stylistic/stylelint-plugin": "^2.1.1",

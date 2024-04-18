@@ -14,7 +14,7 @@ export default antfu({
   rules: {
     'tailwind/sort': 'error',
     'tailwind/multiline': ['error', {
-      maxLen: 40,
+      maxLen: 10,
     }],
     'vue/max-attributes-per-line': ['error', {
       singleline: 1,

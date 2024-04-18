@@ -1084,10 +1084,10 @@
   dependencies:
     "@xstate/graph" "2.0.0-beta.6"
 
-"@xstate/vue@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@xstate/vue/-/vue-3.1.1.tgz#e782cbaefd0696efe6155282351398fd40a5cb42"
-  integrity sha512-2NkLNNUGKKv1dnpZbttfQs+fb5n3fCQEPp04oVGnPB9lWvOHmFQAc+UmIK7f8cMEZmBbbhGI5pXZ+90g5hUZIg==
+"@xstate/vue@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@xstate/vue/-/vue-3.1.2.tgz#2acf6d32822a9010191821c0d7f04467ec75aadf"
+  integrity sha512-gMr4LPl3jGvnfMTke0AIx74FvErGjtqfUNdExQUda/aL9e7yc5fGSDBFJlVQfR44hd2xmQDZVjqbxadEk8NRXQ==
 
 abbrev@^2.0.0:
   version "2.0.0"
@@ -3219,10 +3219,10 @@ vue-demi@>=0.14.7:
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.7.tgz#8317536b3ef74c5b09f268f7782e70194567d8f2"
   integrity sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==
 
-vue-router@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.3.0.tgz#d5913f27bf68a0a178ee798c3c88be471811a235"
-  integrity sha512-dqUcs8tUeG+ssgWhcPbjHvazML16Oga5w34uCUmsk7i0BcnskoLGwjpa15fqMr2Fa5JgVBrdL2MEgqz6XZ/6IQ==
+vue-router@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.3.2.tgz#08096c7765dacc6832f58e35f7a081a8b34116a7"
+  integrity sha512-hKQJ1vDAZ5LVkKEnHhmm1f9pMiWIBNGF5AwU67PdH7TyXCj/a4hTccuUuYCAMgJK6rO/NVYtQIEN3yL8CECa7Q==
   dependencies:
     "@vue/devtools-api" "^6.5.1"
 
