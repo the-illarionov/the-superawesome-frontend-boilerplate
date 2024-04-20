@@ -2,6 +2,7 @@ import { assign, fromPromise, setup } from 'xstate'
 import type { DoneActorEvent } from 'xstate'
 import { useMachine } from '@xstate/vue'
 import type { Ref } from 'vue'
+import { createBrowserInspector } from '@statelyai/inspect'
 import type { ConfigurationData } from './types'
 import type { UserInfo } from '@/types/TypeUserInfo'
 import { useApi } from '@/composables/useApi'
@@ -85,9 +86,22 @@ const MachineApp = setup({
   initial: 'Fetching configuration data',
 })
 
-const machineApp = useMachine(MachineApp)
+const machineOptions: any = {
+  systemId: 'machineApp',
+}
+
+if (import.meta.env.DEV)
+  machineOptions.inspect = createBrowserInspector().inspect
+
+const machineApp = useMachine(MachineApp, machineOptions)
 
 machineApp.actorRef.start()
+
+machineApp.actorRef.subscribe({
+  error: (err) => {
+    console.error(err)
+  },
+})
 
 export {
   machineApp,

@@ -10,14 +10,7 @@ const emit = defineEmits<{
   (e: 'logged', arg: { userInfo: UserInfo }): void
 }>()
 
-const options: any = {}
-
-// Uncomment this line to enable inspector, that will be opened in new tab when you refresh the page
-// import { createBrowserInspector } from '@statelyai/inspect';
-/* if (import.meta.env.DEV)
-  options.inspect = createBrowserInspector().inspect */
-
-const machineIndex = useMachine(MachineIndex, options)
+const machineIndex = useMachine(MachineIndex)
 
 machineIndex.actorRef.start()
 
@@ -88,7 +81,8 @@ machineIndex.actorRef.subscribe({
 
       <div
         v-if="machineIndex.snapshot.value.hasTag('fetching')"
-        class="pt-8 text-center"
+        class="pt-8
+            text-center"
       >
         Loading...
       </div>
