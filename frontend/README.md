@@ -6,9 +6,15 @@ It's not perfect, but it allows to grow the codebase with minimal cost.
 
 ## General rules
 
-1. Treat every component and page as a standalone project. Try to make them as independent as possible without any external dependencies. Create abstractions only when you need them, don't overengineer ahead of time. Create subcomponents only when you are absolutely sure it's necessary.
+1. Treat every component and page as a standalone project, [domain](https://vueschool.io/articles/vuejs-tutorials/domain-driven-design-with-nuxt-layers/). Try to make them as independent as possible without any external dependencies.
+
+    Store everything related to component inside it's folder (assets, composables, subcomponents etc.).
+
+    Create abstractions only when you need them, don't overengineer ahead of time. Create subcomponents only when you are absolutely sure it's necessary.
 
     Ask yourself: _"Can this component be used in another project as-is? Does it really need to be split into multiple components? Does it really need that dependency?"_.
+
+    [It's a Locality of Behaviour Principle](https://htmx.org/essays/locality-of-behaviour/).
 
 2. Don't hesitate to violate DRY if you feel that it will greatly improve the readability and simplicity of the code.
 
@@ -31,8 +37,8 @@ It's not perfect, but it allows to grow the codebase with minimal cost.
     Bad:
     ```javascript
     function useSomething({ bigObject }) {
-        // using bigObject.property
-        // using bigObject.anotherProperty
+      // using bigObject.property
+      // using bigObject.anotherProperty
     }
 
     useSomething({ bigObject })
@@ -43,13 +49,13 @@ It's not perfect, but it allows to grow the codebase with minimal cost.
     Good:
     ```javascript
     function useSomething({ property, anotherProperty }) {
-        // using property
-        // using anotherProperty
+      // using property
+      // using anotherProperty
     }
 
     useSomething({
-        property: bigObject.property,
-        anotherProperty: bigObject.anotherProperty
+      property: bigObject.property,
+      anotherProperty: bigObject.anotherProperty
     })
     ```
     ```javascript
