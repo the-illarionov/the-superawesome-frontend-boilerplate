@@ -39,7 +39,6 @@ const model = defineModel()
 
 <style module lang="postcss">
 .input {
-  display: block;
   width: 100%;
   border: 1px solid;
   transition: border 0.3s, background 0.3s;

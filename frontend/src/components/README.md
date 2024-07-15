@@ -54,11 +54,11 @@ See an example of complex component structure [here](./ComplexComponentExample/)
 
     Bad:
     ```javascript
-    import { useOptionForSotring } from "@/components/SomeComponent/composables/useOptionsForSorting"
+    import { useOptionForSotring } from '@/components/SomeComponent/composables/useOptionsForSorting'
     ```
     Good:
     ```javascript
-    import { useOptionForSorting } from './composables/useOptionsForSorting"
+    import { useOptionForSorting } from './composables/useOptionsForSorting'
     ```
 
 8. Never call something directly in `<template>`, always create your wrapper. It will serve as some kind of your internal API.

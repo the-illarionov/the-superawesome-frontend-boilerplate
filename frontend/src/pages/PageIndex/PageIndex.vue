@@ -25,7 +25,10 @@ function sendUserInfoToMachineApp({ userInfo }: { userInfo: UserInfo }) {
       {{ machineApp.snapshot.value.context }}
     </p>
 
-    <div class="mx-auto w-1/2">
+    <div
+      class="mx-auto
+          w-1/2"
+    >
       <Transition
         name="fade"
         mode="out-in"
