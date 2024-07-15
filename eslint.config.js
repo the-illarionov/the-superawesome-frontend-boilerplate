@@ -6,6 +6,7 @@ export default antfu({
     '**/playwright-report/',
     '**/test-results/',
     '**/dist/',
+    '**/*.md',
   ],
 }, {
   plugins: {
