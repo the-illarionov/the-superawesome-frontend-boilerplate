@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@antfu/eslint-config@^2.22.2":
-  version "2.22.2"
-  resolved "https://registry.yarnpkg.com/@antfu/eslint-config/-/eslint-config-2.22.2.tgz#51c06ea3c3e7a67141d5727aeb7bafe0ef7d5718"
-  integrity sha512-LKC61Rm1VC0CduV4XAZzzEQ1nmTd+H4Y1rVvNg47MgcaCVGftUpY50MD2us3QCC+ktt3AAQYT9Kmbr/nsFW73g==
+"@antfu/eslint-config@^2.22.3":
+  version "2.22.3"
+  resolved "https://registry.yarnpkg.com/@antfu/eslint-config/-/eslint-config-2.22.3.tgz#93e896434803d6b73f5d0b83499abe61f96e9f3c"
+  integrity sha512-SVfcFowH4YNE+vOQojMwNssIlN9C93GtLQ7SfWMMWVD1LrnyQBpYbRb5PudJjDJQS6qjWiyFEEdBkcEUI1F2ag==
   dependencies:
     "@antfu/install-pkg" "^0.3.3"
     "@clack/prompts" "^0.7.0"
@@ -1710,11 +1710,6 @@ is-plain-object@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-5.0.0.tgz#4427f50ab3429e9025ea7d52e9043a9ef4159344"
   integrity sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==
-
-is-unicode-supported@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/is-unicode-supported/-/is-unicode-supported-1.3.0.tgz#d824984b616c292a2e198207d4a609983842f714"
-  integrity sha512-43r2mRvz+8JRIKnWJ+3j8JtjRKZ6GmjzfaE/qiBJnikNnYv/6bagRJ1kUhNk8R5EX/GkobD+r+sfxCPJsiKBLQ==
 
 isexe@^2.0.0:
   version "2.0.0"
