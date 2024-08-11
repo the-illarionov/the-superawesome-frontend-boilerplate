@@ -11,17 +11,17 @@
     "lint:fix": "eslint . --fix && stylelint '**/*.{vue,css}' --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.22.3",
+    "@antfu/eslint-config": "^2.25.1",
     "@kalimahapps/eslint-plugin-tailwind": "^1.1.0",
-    "@stylistic/stylelint-config": "^1.0.1",
-    "@stylistic/stylelint-plugin": "^2.1.2",
-    "eslint": "^9.7.0",
+    "@stylistic/stylelint-config": "^2.0.0",
+    "@stylistic/stylelint-plugin": "^3.0.0",
+    "eslint": "^9.9.0",
     "postcss-html": "^1.7.0",
-    "stylelint": "^16.7.0",
+    "stylelint": "^16.8.1",
     "stylelint-config-clean-order": "^6.1.0",
     "stylelint-config-standard": "^36.0.1",
     "stylelint-config-standard-vue": "^1.0.0",
-    "typescript": "^5.5.3",
-    "vue": "^3.4.31"
+    "typescript": "^5.5.4",
+    "vue": "^3.4.37"
   }
 }
