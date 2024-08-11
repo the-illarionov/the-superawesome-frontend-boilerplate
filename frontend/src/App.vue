@@ -5,14 +5,14 @@ import TheInitializationWrapper from './components/TheInitializationWrapper/TheI
 <template>
   <Suspense>
     <TheInitializationWrapper />
+
     <template #fallback>
       <div
         class="flex
             justify-center
             items-center
             h-full
-            w-full"
-      >
+            w-full">
         Loading...
       </div>
     </template>

@@ -39,6 +39,22 @@ export default antfu({
       multiline: 'below',
     }],
 
+    'vue/padding-line-between-tags': ['error', [
+      { blankLine: 'always', prev: '*', next: '*' },
+    ]],
+
+    'vue/html-closing-bracket-newline': [
+      'error',
+      {
+        singleline: 'never',
+        multiline: 'never',
+        selfClosingTag: {
+          singleline: 'never',
+          multiline: 'never',
+        },
+      },
+    ],
+
     'no-console': 'off',
     'node/prefer-global/process': 'off',
     'ts/consistent-type-definitions': 'off',

@@ -54,8 +54,7 @@ machineIndex.actorRef.subscribe({
               && machineIndex.snapshot.value.context.isDirty"
           :error-message="machineIndex.snapshot.value.context.validationErrors.username"
           :activator-loading="machineIndex.snapshot.value.hasTag('fetching')"
-          data-test="username"
-        />
+          data-test="username" />
       </div>
 
       <div class="mb-8">
@@ -68,22 +67,19 @@ machineIndex.actorRef.subscribe({
               && machineIndex.snapshot.value.context.isDirty"
           :error-message="machineIndex.snapshot.value.context.validationErrors.password"
           :activator-loading="machineIndex.snapshot.value.hasTag('fetching')"
-          data-test="password"
-        />
+          data-test="password" />
       </div>
 
       <BaseButton
         data-test="submit"
-        :activator-loading="machineIndex.snapshot.value.hasTag('fetching')"
-      >
+        :activator-loading="machineIndex.snapshot.value.hasTag('fetching')">
         Login
       </BaseButton>
 
       <div
         v-if="machineIndex.snapshot.value.hasTag('fetching')"
         class="pt-8
-            text-center"
-      >
+            text-center">
         Loading...
       </div>
     </form>

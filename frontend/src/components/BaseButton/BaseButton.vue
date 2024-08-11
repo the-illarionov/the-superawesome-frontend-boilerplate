@@ -11,8 +11,7 @@ const props = defineProps<{
       {
         [$style.loading]: props.activatorLoading,
       },
-    ]"
-  >
+    ]">
     <slot />
   </button>
 </template>

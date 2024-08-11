@@ -20,6 +20,7 @@ function sendUserInfoToMachineApp({ userInfo }: { userInfo: UserInfo }) {
         {{ machineApp.snapshot.value.value }}
       </span>
     </p>
+
     <p class="mb-16">
       machineApp context:
       {{ machineApp.snapshot.value.context }}
@@ -27,22 +28,19 @@ function sendUserInfoToMachineApp({ userInfo }: { userInfo: UserInfo }) {
 
     <div
       class="mx-auto
-          w-1/2"
-    >
+          w-1/2">
       <Transition
         name="fade"
-        mode="out-in"
-      >
+        mode="out-in">
         <FormLogin
           v-if="machineApp.snapshot.value.hasTag('unauthorized')"
           data-test="form-login"
-          @logged="sendUserInfoToMachineApp"
-        />
+          @logged="sendUserInfoToMachineApp" />
+
         <div
           v-else
           class="text-center"
-          data-test="user-logged"
-        >
+          data-test="user-logged">
           You are logged in
         </div>
       </Transition>

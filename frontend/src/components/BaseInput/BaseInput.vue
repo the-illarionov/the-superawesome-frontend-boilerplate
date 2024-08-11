@@ -25,13 +25,12 @@ const model = defineModel()
         {
           [$style.loading]: props.activatorLoading,
         },
-      ]"
-    >
+      ]">
+
     <div
       v-if="props.errorMessage"
       :class="$style['error-message']"
-      data-test="error-message"
-    >
+      data-test="error-message">
       {{ props.errorMessage }}
     </div>
   </div>
