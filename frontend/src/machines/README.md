@@ -74,6 +74,10 @@ Machines can also be spawned by other machines, but I don't have an example of t
 
 6. Try to declare actions in `setup` in an order of their logical appearance.
 
+7. If your actions accepts some arguments, write actions that use that arguments in that event, not in the "entry" of the state.
+
+    It will help you easily visually divide inner logic from incoming.
+
 7. Xstate for VSCode can be buggy sometimes and break synchronization between editor and code. Don't forget about that.
 
     You can use this code as a starter template for the machine:
