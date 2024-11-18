@@ -1,4 +1,4 @@
-import { type UseFetchOptions, createFetch } from '@vueuse/core'
+import { createFetch, type UseFetchOptions } from '@vueuse/core'
 
 const useApiRaw = createFetch({
   baseUrl: '/api',

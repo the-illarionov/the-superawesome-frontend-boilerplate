@@ -1,11 +1,11 @@
-import { assign, fromPromise, setup } from 'xstate'
-import type { DoneActorEvent } from 'xstate'
-import { useMachine } from '@xstate/vue'
-import type { Ref } from 'vue'
-import { createBrowserInspector } from '@statelyai/inspect'
-import type { ConfigurationData } from './types'
 import type { UserInfo } from '@/types/TypeUserInfo'
+import type { Ref } from 'vue'
+import type { DoneActorEvent } from 'xstate'
+import type { ConfigurationData } from './types'
 import { useApi } from '@/composables/useApi'
+import { createBrowserInspector } from '@statelyai/inspect'
+import { useMachine } from '@xstate/vue'
+import { assign, fromPromise, setup } from 'xstate'
 
 const MachineApp = setup({
   types: {} as {

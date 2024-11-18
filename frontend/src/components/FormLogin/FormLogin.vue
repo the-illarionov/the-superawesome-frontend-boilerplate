@@ -1,10 +1,10 @@
 <script setup lang='ts'>
+import type { UserInfo } from '@/types/TypeUserInfo'
+import BaseButton from '@/components//BaseButton/BaseButton.vue'
+import BaseInput from '@/components/BaseInput/BaseInput.vue'
 import { useMachine } from '@xstate/vue'
 import { ref } from 'vue'
 import { MachineIndex } from './machines/MachineIndex'
-import BaseInput from '@/components/BaseInput/BaseInput.vue'
-import BaseButton from '@/components//BaseButton/BaseButton.vue'
-import type { UserInfo } from '@/types/TypeUserInfo'
 
 const emit = defineEmits<{
   (e: 'logged', arg: { userInfo: UserInfo }): void

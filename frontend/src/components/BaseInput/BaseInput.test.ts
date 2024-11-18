@@ -1,6 +1,6 @@
-import { expect, it } from 'vitest'
-
 import { mount } from '@vue/test-utils'
+
+import { expect, it } from 'vitest'
 import BaseInput from './BaseInput.vue'
 
 it('renders validation error', () => {

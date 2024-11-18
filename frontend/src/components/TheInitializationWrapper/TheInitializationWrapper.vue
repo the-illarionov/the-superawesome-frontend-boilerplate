@@ -1,4 +1,5 @@
 <script setup lang='ts'>
+import { machineApp } from '@/machines/MachineApp/MachineApp'
 /*
   This component waits for all of the logic required for application to be loaded before starting rendering anything.
   For example, you have something on your backend and you want to be safe that when any page renders it will already have that information.
@@ -7,7 +8,6 @@
 */
 import { RouterView } from 'vue-router'
 import { waitFor } from 'xstate'
-import { machineApp } from '@/machines/MachineApp/MachineApp'
 
 await waitFor(
   machineApp.actorRef,

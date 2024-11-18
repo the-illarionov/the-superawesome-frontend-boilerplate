@@ -1,8 +1,8 @@
 <script setup lang='ts'>
+import type { UserInfo } from '@/types/TypeUserInfo'
+import FormLogin from '@/components/FormLogin/FormLogin.vue'
 import LayoutBase from '@/layouts/LayoutBase.vue'
 import { machineApp } from '@/machines/MachineApp/MachineApp'
-import FormLogin from '@/components/FormLogin/FormLogin.vue'
-import type { UserInfo } from '@/types/TypeUserInfo'
 
 function sendUserInfoToMachineApp({ userInfo }: { userInfo: UserInfo }) {
   machineApp.send({

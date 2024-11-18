@@ -1,9 +1,9 @@
-import { assign, fromPromise, setup } from 'xstate'
-import type { DoneActorEvent, ErrorActorEvent } from 'xstate'
+import type { UserInfo } from '@/types/TypeUserInfo'
 import type { Ref } from 'vue'
+import type { DoneActorEvent, ErrorActorEvent } from 'xstate'
 import type { FormData, ValidationErrors } from '../types'
 import { useApi } from '@/composables/useApi'
-import type { UserInfo } from '@/types/TypeUserInfo'
+import { assign, fromPromise, setup } from 'xstate'
 
 export const MachineIndex = setup({
   types: {} as {

@@ -1,17 +1,17 @@
 import { expect, test } from '@playwright/test'
 
-import { setup } from 'xstate'
 import { createTestModel } from '@xstate/test'
+import { setup } from 'xstate'
 
 const MachineUserFlow = setup({
   types: {} as {
     events: |
-    {
-      type: 'User successfully logged'
-    } |
-    {
-      type: 'User submitted form with blank username'
-    }
+      {
+        type: 'User successfully logged'
+      } |
+      {
+        type: 'User submitted form with blank username'
+      }
   },
 }).createMachine({
   /** @xstate-layout N4IgpgJg5mDOIC5QFkCGBjAFgSwHZgFVYwAnAMQBsB7AdwDojSACAN21mwBdYmSqrOAYkYkmsAK7p0cWADNxFCgE8m1KDAgBtAAwBdRKAAOVDp2xVcBkAA9EAJgDMdgDQgliABwA2OgFYAvv6uaFh4hMTk1PQirOxcPHwCwhFi4gBGALZcnJBMslQkGUw0XJhMaRSouADWTOIRuKgZYDr6SCDGpuaW7bYIdnYAnH6u7ggAjB52foFBILhUEHBWITj4IpS0Vp1c3VZ92qOIALTjgcEYa+Gkm9EpbKYJ-JzbJrsW+4gALB5HCN4zOarMIbKIMFLsVRUdSQV5dD69RBeOy+P4AgJAy4giK3OgANVQFGwEFQZgsTFIfFEkNgmFoPSMbzJDJsSIGfkGDgA7Ki3IhJtMMYEgA */
