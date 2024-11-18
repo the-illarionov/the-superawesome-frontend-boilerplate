@@ -90,7 +90,7 @@ const machineOptions: any = {
   systemId: 'machineApp',
 }
 
-if (import.meta.env.DEV)
+if (import.meta.env.DEV && import.meta.env.VITE_XSTATE_DEBUG === '1')
   machineOptions.inspect = createBrowserInspector().inspect
 
 const machineApp = useMachine(MachineApp, machineOptions)
