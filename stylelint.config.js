@@ -23,5 +23,6 @@ export default {
         ],
       },
     ],
+    'no-empty-source': null,
   },
 }
