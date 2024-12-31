@@ -4,7 +4,34 @@ Machines can be global singletons ([like this](./MachineApp/)) or local, spawned
 
 Machines can also be spawned by other machines, but I don't have an example of that in this repo.
 
-1. Name machines with capital letter, running services - same name but with lowercase.
+1. Try to avoid global state. Treat your machines as independent services. 
+
+    If your machine needs data from another machine, try to pass that data in the moment of spawning machine. Avoid direct binding between machines.
+
+    It will cause an overhead at the beginning, but while your application will grow and become more and more complex, you will benefit from it more and more.
+
+2. Try to store only primitives in context. It just makes your code and understanding of what your machine does much easier.
+
+    Bad:
+    ```javascript
+    context: {
+        user: {
+            name: string,
+            data: {
+                hp: number
+            }
+        }
+    }
+    ```
+    Good:
+    ```javascript
+    context: {
+        userName: string,
+        userHp: number
+    }
+    ```
+
+3. Name machines with capital letter, running services - same name but with lowercase.
     ```javascript
     const MachineIndex = setup({
         // ...
@@ -13,7 +40,7 @@ Machines can also be spawned by other machines, but I don't have an example of t
     const machineIndex = useMachine(MachineIndex)
     ```
 
-2. Machine for component always has the name `MachineIndex` and is located in the `machines` subfolder.
+4. Machine for component always has the name `MachineIndex` and is located in the `machines` subfolder.
     ```
     components/
         SomeComponent/
@@ -22,7 +49,7 @@ Machines can also be spawned by other machines, but I don't have an example of t
             SomeComponent.vue
     ```
 
-3. Check if the machine is in some state by tags, not by state name.
+5. Check if the machine is in some state by tags, not by state name.
 
     Bad:
     ```javascript
@@ -33,7 +60,7 @@ Machines can also be spawned by other machines, but I don't have an example of t
     if(machineIndex.value.context.value.hasTag('some-tag') {
     ```
 
-4. When designing machine in visual editor, form some general rules and stick to them.
+6. When designing machine in visual editor, form some general rules and stick to them.
 
     For example:
 
@@ -41,7 +68,7 @@ Machines can also be spawned by other machines, but I don't have an example of t
 
     You can have your own rules, but once you formed them stick to them.
 
-5. Also create the rules about naming actions, events and states.
+7. Also create the rules about naming actions, events and states.
 
     For example:
 
@@ -53,7 +80,7 @@ Machines can also be spawned by other machines, but I don't have an example of t
 
     You can make your own rules, but be consistent once you've formed them.
 
-5. Keep your actions as small as possible. They must do only one thing. And do your best to keep them pure.
+8. Keep your actions as small as possible. They must do only one thing. And do your best to keep them pure.
 
     It can lead to overhead with 5-6 actions for 1 transition, but it's ok. It makes people without context (even non-techs if you name them right) easily understand what is going on.
 
@@ -72,24 +99,8 @@ Machines can also be spawned by other machines, but I don't have an example of t
         assignMoreContextProperty() { ...
     ```
 
-6. Try to declare actions in `setup` in an order of their logical appearance.
+9. Try to declare actions in `setup` in an order of their logical appearance.
 
-7. If your actions accepts some arguments, write actions that use that arguments in that event, not in the "entry" of the state.
+10. If your actions accepts some arguments, write actions that use that arguments in that event, not in the "entry" of the state.
 
     It will help you easily visually divide inner logic from incoming.
-
-7. Xstate for VSCode can be buggy sometimes and break synchronization between editor and code. Don't forget about that.
-
-    You can use this code as a starter template for the machine:
-    ```javascript
-    import { setup } from 'xstate';
-
-    export const MachineIndex = setup({
-        types: {} as {
-
-    },
-    }).createMachine({
-        /** @xstate-layout N4IgpgJg5mDOIC5gF8A0IB2B7CdGgDkBDAWzAE0sBXAJwFkiBjACwEsMx8QAHLWVgC6ssGLgA9EAWgBs09AE8pAZgCcydciA */
-        id: 'MachineIndex',
-    });
-    ```
