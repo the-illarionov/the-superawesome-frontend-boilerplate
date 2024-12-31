@@ -4,22 +4,16 @@ dotenv: [.env]
 
 tasks:
   env:
-    desc: makes .env from .env.example
     cmds:
       - cp .env.example .env
-      - cp .env.example ../frontend/.env.development.local
-      - cp .env.example ../backend/.env.development.local
+      - cp .env.example ../.env.development.local
 
   init:
-    desc: prepare everything for development
     cmds:
-      - task root:yarn
-      - task frontend:yarn
-      - task backend:yarn
+      - task yarn
       - docker pull $PLAYWRIGHT_IMAGE
       - docker pull $NGINX_IMAGE
-      - docker build -t backend-dev - < ./Backend.Dockerfile --build-arg NODE_IMAGE
-      - docker build -t unit-tests-ui - < ./UnitTestUi.Dockerfile --build-arg NODE_IMAGE
+      - docker build -t vitest-ui - < ./VitestUi.Dockerfile --build-arg NODE_IMAGE
 
   up:
     desc: start services
@@ -42,9 +36,7 @@ tasks:
     cmds:
       - docker compose logs -f
 
-  # ROOT
-  root:
-    desc: launch node with mounted root directory
+  bash:
     cmds:
       - |
         docker run --user $USERID \
@@ -53,8 +45,8 @@ tasks:
           -v $(pwd)/..:/app \
           $NODE_IMAGE /bin/bash
 
-  root:yarn:
-    desc: runs 'yarn' in root directory
+  yarn:
+    desc: You can pass additional parameters like 'task yarn -- add -D vue', which will be resulted in 'yarn add -D vue'
     cmds:
       - |
         docker run --user $USERID \
@@ -63,8 +55,7 @@ tasks:
           -v $(pwd)/..:/app \
           $NODE_IMAGE /bin/bash -c "yarn {{.CLI_ARGS }}"
 
-  root:lint:
-    desc: runs 'lint' in root directory
+  lint:
     cmds:
       - |
         docker run --user $USERID \
@@ -73,8 +64,7 @@ tasks:
           -v $(pwd)/..:/app \
           $NODE_IMAGE /bin/bash -c "yarn lint"
 
-  root:lint:fix:
-    desc: runs 'lint:fix' in root directory
+  lint:fix:
     cmds:
       - |
         docker run --user $USERID \
@@ -83,60 +73,7 @@ tasks:
           -v $(pwd)/..:/app \
           $NODE_IMAGE /bin/bash -c "yarn lint:fix"
 
-  # BACKEND
-  backend:
-    desc: launch node with mounted 'backend' directory
-    cmds:
-      - |
-        docker run --user $USERID \
-          -it --rm \
-          -w /app \
-          -v $(pwd)/../backend:/app \
-          $NODE_IMAGE /bin/bash
-
-  backend:yarn:
-    desc: runs 'yarn' in 'backend' directory (you can pass additional parameters like 'task backend:yarn -- add -D vue', which will be resulted in 'yarn add -D vue')
-    cmds:
-      - |
-        docker run --user $USERID \
-          --rm \
-          -w /app \
-          -v $(pwd)/../backend:/app \
-          $NODE_IMAGE /bin/bash -c "yarn {{.CLI_ARGS }}"
-
-  backend:build:
-    desc: runs 'yarn build'
-    cmds:
-      - |
-        docker run --user $USERID \
-          --rm \
-          -w /app \
-          -v $(pwd)/../backend:/app \
-          $NODE_IMAGE /bin/bash -c "yarn build"
-
-  # FRONTEND
-  frontend:
-    desc: launch node with mounted 'frontend' directory
-    cmds:
-      - |
-        docker run --user $USERID \
-          -it --rm \
-          -w /app \
-          -v $(pwd)/../frontend:/app \
-          $NODE_IMAGE /bin/bash
-
-  frontend:yarn:
-    desc: runs 'yarn' in 'frontend' directory (you can pass additional parameters like 'task frontend:yarn -- add -D vue', which will be resulted in 'yarn add -D vue')
-    cmds:
-      - |
-        docker run --user $USERID \
-          --rm \
-          -w /app \
-          -v $(pwd)/../frontend:/app \
-          $NODE_IMAGE /bin/bash -c "yarn {{.CLI_ARGS }}"
-
-  frontend:build:
-    desc: runs 'yarn build'
+  build:
     cmds:
       - |
         docker run --user $USERID \
@@ -144,38 +81,6 @@ tasks:
           -w /app \
           -v $(pwd)/../frontend:/app \
           $NODE_IMAGE /bin/bash -c "yarn build"
-
-  # TESTS
-  test:unit:frontend:
-    desc: runs unit tests in frontend
-    cmds:
-      - |
-        docker run --user $USERID \
-          -v $(pwd)/../frontend:/app \
-          -w /app \
-          $NODE_IMAGE \
-          yarn test:unit
-
-  test:unit:backend:
-    desc: runs unit tests in backend
-    cmds:
-      - |
-        docker run --user $USERID \
-          -v $(pwd)/../backend:/app \
-          -w /app \
-          $NODE_IMAGE \
-          yarn test:unit
-
-  test:e2e:
-    desc: runs Playwright
-    cmds:
-      - |
-        docker run --user $USERID \
-          --rm --network="host" --ipc=host \
-          -v $(pwd)/../frontend:/app \
-          -w /app \
-          $PLAYWRIGHT_IMAGE \
-          yarn test:e2e
 
   test:e2e:ui:
     desc: runs Playwright in UI mode (works only in Linux)

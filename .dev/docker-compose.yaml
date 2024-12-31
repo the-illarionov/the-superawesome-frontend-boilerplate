@@ -1,74 +1,28 @@
 services:
-  frontend:
+  app:
     image: ${NODE_IMAGE}
     working_dir: /app
     command: yarn dev
     user: ${USERID}
-    depends_on:
-      - backend
     volumes:
-      - ../frontend:/app
+      - ../:/app
 
-  frontend-preview:
+  app-preview:
     image: ${NODE_IMAGE}
     working_dir: /app
     command: yarn preview
     user: ${USERID}
     ports:
-      - ${PREVIEW_PORT}:80
-    depends_on:
-      - backend
+      - ${PREVIEW_PORT}:8000
     volumes:
-      - ../frontend:/app
+      - ../:/app
 
-  backend:
-    image: backend-dev
-    working_dir: /app
-    command: yarn dev
-    user: ${USERID}
-    volumes:
-      - ../backend:/app
-
-  nginx:
-    image: ${NGINX_IMAGE}
-    ports:
-      - ${NGINX_PORT}:80
-    volumes:
-      - ../nginx/templates.dev:/etc/nginx/templates
-      - ../.dev/tests.html:/var/www/tests/index.html
-    depends_on:
-      - frontend
-      - backend
-
-  frontend-tests-unit:
-    image: unit-tests-ui
+  test-unit:
+    image: vitest-ui
     user: ${USERID}
     working_dir: /app
     command: yarn test:unit:ui
     ports:
-      - '9000:8000'
+      - ${VITEST_PORT}:8100
     volumes:
       - ../frontend:/app
-
-  backend-tests-unit:
-    image: unit-tests-ui
-    user: ${USERID}
-    working_dir: /app
-    command: yarn test:unit:ui
-    ports:
-      - '9010:8000'
-    volumes:
-      - ../backend:/app
-
-  tests-e2e:
-    image: ${PLAYWRIGHT_IMAGE}
-    user: ${USERID}
-    working_dir: /app
-    depends_on:
-      - frontend
-      - backend
-    ports:
-      - '9020:8000'
-    volumes:
-      - ../frontend:/app
-    command: yarn test:e2e:report
