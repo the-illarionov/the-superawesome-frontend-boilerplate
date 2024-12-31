@@ -60,6 +60,12 @@ Lint: [eslint](https://eslint.org/) with [custom config](./eslint.config.js) (ba
   Invest your time into learning it, it's an absolute life changer.
 
 ## Known issues:
+- If you encounter `ENOENT: Permission denied` error, go to `.dev/.env` and replace `USERID` with yours. 
+
+  It's your system user's id and group id. Usually user id (first value) is 1000 and group id (second value) is 1000 too.
+
+  Run `id -u` and `id -g` in your terminal and change `USERID` value to what you will receive.
+
 - If you are not on Linux, you need to go to [Taskfile.yaml](./.dev/Taskfile.yaml) and search for `TODO`.
 
   You will need to add some tweaks to the configuration.

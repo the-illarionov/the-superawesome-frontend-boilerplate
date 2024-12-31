@@ -2,10 +2,6 @@ version: '3'
 
 dotenv: [.env]
 
-vars:
-  MY_UID: $(id -u) # TODO: Change this line if you are not on Linux
-  MY_GID: $(id -g) # TODO: Change this line if you are not on Linux
-
 tasks:
   env:
     desc: makes .env from .env.example
@@ -28,12 +24,12 @@ tasks:
   up:
     desc: start services
     cmds:
-      - MY_UID="{{.MY_UID}}" MY_GID="{{.MY_GID}}" docker compose up -d
+      - docker compose up -d
 
   down:
     desc: stops services
     cmds:
-      - MY_UID="{{.MY_UID}}" MY_GID="{{.MY_GID}}" docker compose down
+      - docker compose down
 
   restart:
     desc: restart services
@@ -51,7 +47,7 @@ tasks:
     desc: launch node with mounted root directory
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           -it --rm \
           -w /app \
           -v $(pwd)/..:/app \
@@ -61,7 +57,7 @@ tasks:
     desc: runs 'yarn' in root directory
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           --rm \
           -w /app \
           -v $(pwd)/..:/app \
@@ -71,7 +67,7 @@ tasks:
     desc: runs 'lint' in root directory
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           --rm \
           -w /app \
           -v $(pwd)/..:/app \
@@ -81,7 +77,7 @@ tasks:
     desc: runs 'lint:fix' in root directory
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           --rm \
           -w /app \
           -v $(pwd)/..:/app \
@@ -92,7 +88,7 @@ tasks:
     desc: launch node with mounted 'backend' directory
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           -it --rm \
           -w /app \
           -v $(pwd)/../backend:/app \
@@ -102,7 +98,7 @@ tasks:
     desc: runs 'yarn' in 'backend' directory (you can pass additional parameters like 'task backend:yarn -- add -D vue', which will be resulted in 'yarn add -D vue')
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           --rm \
           -w /app \
           -v $(pwd)/../backend:/app \
@@ -112,7 +108,7 @@ tasks:
     desc: runs 'yarn build'
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           --rm \
           -w /app \
           -v $(pwd)/../backend:/app \
@@ -123,7 +119,7 @@ tasks:
     desc: launch node with mounted 'frontend' directory
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           -it --rm \
           -w /app \
           -v $(pwd)/../frontend:/app \
@@ -133,7 +129,7 @@ tasks:
     desc: runs 'yarn' in 'frontend' directory (you can pass additional parameters like 'task frontend:yarn -- add -D vue', which will be resulted in 'yarn add -D vue')
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           --rm \
           -w /app \
           -v $(pwd)/../frontend:/app \
@@ -143,7 +139,7 @@ tasks:
     desc: runs 'yarn build'
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           --rm \
           -w /app \
           -v $(pwd)/../frontend:/app \
@@ -154,7 +150,7 @@ tasks:
     desc: runs unit tests in frontend
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           -v $(pwd)/../frontend:/app \
           -w /app \
           $NODE_IMAGE \
@@ -164,7 +160,7 @@ tasks:
     desc: runs unit tests in backend
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           -v $(pwd)/../backend:/app \
           -w /app \
           $NODE_IMAGE \
@@ -174,7 +170,7 @@ tasks:
     desc: runs Playwright
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           --rm --network="host" --ipc=host \
           -v $(pwd)/../frontend:/app \
           -w /app \
@@ -186,7 +182,7 @@ tasks:
     # TODO: Please refer to https://www.oddbird.net/2022/11/30/headed-playwright-in-docker/ if you want to make it work on Windows or macOS
     cmds:
       - |
-        docker run --user {{.MY_UID}}:{{.MY_GID}} \
+        docker run --user $USERID \
           --rm --network="host" --ipc=host \
           -e DISPLAY=${DISPLAY} \
           -v /tmp/.X11-unix:/tmp/.X11-unix \

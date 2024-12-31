@@ -3,7 +3,7 @@ services:
     image: ${NODE_IMAGE}
     working_dir: /app
     command: yarn dev
-    user: ${MY_UID}:${MY_GID}
+    user: ${USERID}
     depends_on:
       - backend
     volumes:
@@ -13,7 +13,7 @@ services:
     image: ${NODE_IMAGE}
     working_dir: /app
     command: yarn preview
-    user: ${MY_UID}:${MY_GID}
+    user: ${USERID}
     ports:
       - ${PREVIEW_PORT}:80
     depends_on:
@@ -25,7 +25,7 @@ services:
     image: backend-dev
     working_dir: /app
     command: yarn dev
-    user: ${MY_UID}:${MY_GID}
+    user: ${USERID}
     volumes:
       - ../backend:/app
 
@@ -42,7 +42,7 @@ services:
 
   frontend-tests-unit:
     image: unit-tests-ui
-    user: ${MY_UID}:${MY_GID}
+    user: ${USERID}
     working_dir: /app
     command: yarn test:unit:ui
     ports:
@@ -52,7 +52,7 @@ services:
 
   backend-tests-unit:
     image: unit-tests-ui
-    user: ${MY_UID}:${MY_GID}
+    user: ${USERID}
     working_dir: /app
     command: yarn test:unit:ui
     ports:
@@ -62,7 +62,7 @@ services:
 
   tests-e2e:
     image: ${PLAYWRIGHT_IMAGE}
-    user: ${MY_UID}:${MY_GID}
+    user: ${USERID}
     working_dir: /app
     depends_on:
       - frontend
