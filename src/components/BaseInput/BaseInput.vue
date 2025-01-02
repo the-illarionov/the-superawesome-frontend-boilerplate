@@ -4,9 +4,9 @@ defineOptions({
 })
 
 const props = defineProps<{
-  activatorError: boolean | undefined
-  activatorLoading: boolean
-  errorMessage: string | undefined
+  activatorError?: boolean
+  activatorLoading?: boolean
+  errorMessage?: string
 }>()
 
 const model = defineModel()
@@ -19,12 +19,8 @@ const model = defineModel()
       v-bind="$attrs"
       :class="[
         $style.input,
-        {
-          [$style.error]: props.activatorError,
-        },
-        {
-          [$style.loading]: props.activatorLoading,
-        },
+        props.activatorError && $style.error,
+        props.activatorLoading && $style.loading,
       ]">
 
     <div
@@ -49,7 +45,7 @@ const model = defineModel()
 
 .error-message {
   position: absolute;
-  top: 100%;
+  bottom: 100%;
   left: 0;
 
   @apply text-red-600;

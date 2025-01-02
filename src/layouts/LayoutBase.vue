@@ -3,14 +3,16 @@
 </script>
 
 <template>
-  <nav
-    class="flex
-        justify-between
-        mb-8">
-    <span>logo</span>
+  <div class="p-4">
+    <nav
+      class="flex
+          justify-between
+          mb-8">
+      <span>logo</span>
 
-    <span>navigation</span>
-  </nav>
+      <span>navigation</span>
+    </nav>
 
-  <slot />
+    <slot />
+  </div>
 </template>

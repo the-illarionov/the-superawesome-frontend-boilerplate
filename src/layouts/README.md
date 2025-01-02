@@ -1,6 +1,6 @@
 # Layouts
 
-Include layout on every page.
+Include layout on every page, not in your `App.vue`.
 
 It could be cumbersome, but it gives you the power of customization and controlling each page look individually.
 

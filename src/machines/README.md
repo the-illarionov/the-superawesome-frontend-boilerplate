@@ -1,8 +1,6 @@
 # Machines
 
-Machines can be global singletons ([like this](./MachineApp/)) or local, spawned when a component mounts ([like this](../components/FormLogin/machines/)).
-
-Machines can also be spawned by other machines, but I don't have an example of that in this repo.
+I prefer the way when i have global singleton machines, not spawned and killed when user leaves page. It gives much more friendly DX when dealing with types, accessing context etc.
 
 1. Try to avoid global state. Treat your machines as independent services. 
 

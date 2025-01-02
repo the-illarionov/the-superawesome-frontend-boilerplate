@@ -1,20 +1,12 @@
 <script setup lang="ts">
-import TheInitializationWrapper from './components/TheInitializationWrapper/TheInitializationWrapper.vue'
+import { RouterView } from 'vue-router'
+import { machineApp } from './machines/MachineApp/MachineApp'
+
+machineApp.send({
+  type: 'Awake',
+})
 </script>
 
 <template>
-  <Suspense>
-    <TheInitializationWrapper />
-
-    <template #fallback>
-      <div
-        class="flex
-            justify-center
-            items-center
-            h-full
-            w-full">
-        Loading...
-      </div>
-    </template>
-  </Suspense>
+  <RouterView />
 </template>

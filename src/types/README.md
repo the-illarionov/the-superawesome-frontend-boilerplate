@@ -16,7 +16,7 @@
     export type TabValue = (typeof tabs)[number]['value'] // 'tab-value' | 'another-tab-value'
     ```
 
-2. Types are always local and sit in the root `types.ts` file.
+2. Types are always local and sit in the `types.ts` file.
     ```
     components/
         SomeComponent/

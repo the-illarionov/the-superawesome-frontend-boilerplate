@@ -1,49 +1,60 @@
 <script setup lang='ts'>
-import type { UserInfo } from '@/types/TypeUserInfo'
-import FormLogin from '@/components/FormLogin/FormLogin.vue'
+import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import BaseInput from '@/components/BaseInput/BaseInput.vue'
 import LayoutBase from '@/layouts/LayoutBase.vue'
 import { machineApp } from '@/machines/MachineApp/MachineApp'
+import { computed, ref } from 'vue'
 
-function sendUserInfoToMachineApp({ userInfo }: { userInfo: UserInfo }) {
+const isLoading = computed(() => machineApp.snapshot.value.hasTag('loading'))
+const errorMessage = computed(() => machineApp.snapshot.value.context.error)
+
+const postId = ref('')
+
+function fetchPost() {
   machineApp.send({
-    type: 'User authorized',
-    userInfo,
+    type: 'User fetched post',
+    id: Number.parseInt(postId.value),
   })
 }
+
+const post = computed(() => machineApp.snapshot.value.context.post)
 </script>
 
 <template>
   <LayoutBase>
-    <p>
-      machineApp state:
-      <span data-test="machineapp-state">
-        {{ machineApp.snapshot.value.value }}
-      </span>
-    </p>
+    <BaseInput
+      v-model="postId"
+      :activator-loading="isLoading"
+      :activator-error="typeof errorMessage !== 'undefined'"
+      :error-message="errorMessage"
+      class="mb-4"
+      placeholder="Type an id for a post to fetch from jsonplaceholder.com" />
 
-    <p class="mb-16">
-      machineApp context:
-      {{ machineApp.snapshot.value.context }}
-    </p>
+    <BaseButton
+      :activator-loading="isLoading"
+      class="mb-8"
+      @pointerdown="fetchPost">
+      Fetch post
+    </BaseButton>
 
-    <div
-      class="mx-auto
-          w-1/2">
-      <Transition
-        name="fade"
-        mode="out-in">
-        <FormLogin
-          v-if="machineApp.snapshot.value.hasTag('unauthorized')"
-          data-test="form-login"
-          @logged="sendUserInfoToMachineApp" />
+    <Transition name="fade">
+      <div v-if="post">
+        <h2 class="text-xl">
+          {{ post.title }}
+        </h2>
 
-        <div
-          v-else
-          class="text-center"
-          data-test="user-logged">
-          You are logged in
-        </div>
-      </Transition>
-    </div>
+        <p>
+          {{ post.body }}
+        </p>
+
+        <p class="text-gray-500">
+          id: {{ post.id }}
+        </p>
+
+        <p class="text-gray-500">
+          userId: {{ post.userId }}
+        </p>
+      </div>
+    </Transition>
   </LayoutBase>
 </template>

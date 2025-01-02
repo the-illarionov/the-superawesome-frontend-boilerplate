@@ -20,7 +20,6 @@
     "lint:fix": "eslint . --fix && stylelint '**/*.{vue,css}' --fix"
   },
   "dependencies": {
-    "@vueuse/core": "^12.2.0",
     "vue": "^3.5.13",
     "vue-router": "^4.4.5",
     "xstate": "^5.19.0"
@@ -34,10 +33,10 @@
     "@stylistic/stylelint-plugin": "^3.1.1",
     "@tsconfig/node22": "^22.0.0",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.3",
     "@unhead/vue": "^1.11.11",
     "@vitejs/plugin-vue": "^5.2.1",
-    "@vitest/eslint-plugin": "1.1.21",
+    "@vitest/eslint-plugin": "^1.1.23",
     "@vitest/ui": "^2.1.8",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",

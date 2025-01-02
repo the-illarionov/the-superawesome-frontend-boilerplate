@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 const props = defineProps<{
-  activatorLoading: boolean
+  activatorLoading?: boolean
 }>()
 </script>
 
@@ -8,9 +8,7 @@ const props = defineProps<{
   <button
     :class="[
       $style.button,
-      {
-        [$style.loading]: props.activatorLoading,
-      },
+      props.activatorLoading && $style.loading,
     ]">
     <slot />
   </button>
@@ -19,9 +17,14 @@ const props = defineProps<{
 <style module lang="postcss">
 .button {
   display: block;
+
   width: 100%;
+
   text-align: center;
+
   border: 1px solid;
+
+  transition: border 0.3s, background 0.3s;
 }
 
 .loading {

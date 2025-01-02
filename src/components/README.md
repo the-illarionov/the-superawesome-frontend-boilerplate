@@ -1,6 +1,6 @@
 # Components
 
-See an example of complex component structure [here](./ComplexComponentExample/).
+See an example of complex component structure [here](./.ComplexComponentExample/).
 
 1. Naming goes from general to specific, from left to right.
 
