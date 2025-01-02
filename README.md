@@ -134,12 +134,9 @@ Lint: [eslint](https://eslint.org/) with [custom config](./eslint.config.js) (ba
 
     Bad:
     ```javascript
-    function useSomething({ bigObject }) {
-      // using bigObject.property
-      // using bigObject.anotherProperty
+    function useSomething(bigObject) {
+      // bigObject.property, bigObject.anotherProperty
     }
-
-    useSomething({ bigObject })
     ```
     ```javascript
     <ChildComponent :parent="parent" />
@@ -147,8 +144,7 @@ Lint: [eslint](https://eslint.org/) with [custom config](./eslint.config.js) (ba
     Good:
     ```javascript
     function useSomething({ property, anotherProperty }) {
-      // using property
-      // using anotherProperty
+      // property, anotherProperty
     }
 
     useSomething({
