@@ -79,7 +79,7 @@ tasks:
         docker run --user $USERID \
           --rm \
           -w /app \
-          -v $(pwd)/../frontend:/app \
+          -v $(pwd)/..:/app \
           $NODE_IMAGE /bin/bash -c "yarn build"
 
   test:e2e:ui:
@@ -91,7 +91,7 @@ tasks:
           --rm --network="host" --ipc=host \
           -e DISPLAY=${DISPLAY} \
           -v /tmp/.X11-unix:/tmp/.X11-unix \
-          -v $(pwd)/../frontend:/app \
+          -v $(pwd)/..:/app \
           -w /app \
           $PLAYWRIGHT_IMAGE \
           yarn test:e2e:ui

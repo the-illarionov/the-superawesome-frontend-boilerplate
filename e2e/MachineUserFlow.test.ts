@@ -7,28 +7,28 @@ const MachineUserFlow = setup({
   types: {} as {
     events: |
       {
-        type: 'User successfully logged'
+        type: 'User successfully fetched post'
       } |
       {
-        type: 'User submitted form with blank username'
+        type: 'User unsuccessfully fetched post'
       }
   },
 }).createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QFkCGBjAFgSwHZgFVYwAnAMQBsB7AdwDojSACAN21mwBdYmSqrOAYkYkmsAK7p0cWADNxFCgE8m1KDAgBtAAwBdRKAAOVDp2xVcBkAA9EAJgDMdgDQgliABwA2OgFYAvv6uaFh4hMTk1PQirOxcPHwCwhFi4gBGALZcnJBMslQkGUw0XJhMaRSouADWTOIRuKgZYDr6SCDGpuaW7bYIdnYAnH6u7ggAjB52foFBILhUEHBWITj4IpS0Vp1c3VZ92qOIALTjgcEYa+Gkm9EpbKYJ-JzbJrsW+4gALB5HCN4zOarMIbKIMFLsVRUdSQV5dD69RBeOy+P4AgJAy4giK3OgANVQFGwEFQZgsTFIfFEkNgmFoPSMbzJDJsSIGfkGDgA7Ki3IhJtMMYEgA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QFkCGBjAFgSwHZgFVYwAnAMQBsB7AdwDojSACAN21mwBdYmSqrOAYkYkmsAK7p0cWADNxFCgE8mssJyyQmAByqxOAbQAMAXUShdHTtiq5zIAB6IATAGZnAGhBLEADgBsdACsAL4hXmhYeITE5NT0IqzsXDx8AsKxTOK4ElIy8ooqahqYWpaGpvaWXDZ2SI4uzgCcwV4+CACMvs7BYeEguFQQcPaROPgilLRVejW29k4IRm2IALQddEZb201GQUGuRq7+x2ERGOMxpFMJmWxWqfycM1a1C4gALL4rCAG9-WNopN4nQAAp6ThMdiqdSaCAvOZ1UCLfzOII-P6hAEXIGxG5giEwkp4KBMUh8UTQ2CYWhIkDVazzeoo5w9IJNVwAdnR3kQXTZfRCQA */
   id: 'MachineUserFlow',
 
   states: {
     'User visits root': {
       on: {
-        'User successfully logged': 'User is logged',
-        'User submitted form with blank username': 'Validation error is shown',
+        'User successfully fetched post': 'Post is fetched',
+        'User unsuccessfully fetched post': 'Post fetching error is shown',
       },
     },
 
-    'User is logged': {
+    'Post is fetched': {
 
     },
-    'Validation error is shown': {
+    'Post fetching error is shown': {
 
     },
   },
@@ -46,22 +46,22 @@ testPaths.forEach((path) => {
       states: {
         'User visits root': async () => {
           await page.goto('/')
-          await expect(page.getByTestId('form-login')).toBeVisible()
+          await expect(page.getByTestId('input')).toBeVisible()
         },
-        'User is logged': async () => {
-          await expect(page.getByTestId('user-logged')).toBeVisible()
+        'Post is fetched': async () => {
+          await expect(page.getByTestId('post')).toBeVisible()
         },
-        'Validation error is shown': async () => {
+        'Post fetching error is shown': async () => {
           await expect(page.getByTestId('error-message').first()).toBeVisible()
         },
       },
       events: {
-        'User successfully logged': async () => {
-          await page.getByTestId('username').fill('John Doe')
-          await page.getByTestId('password').fill('Password')
+        'User successfully fetched post': async () => {
+          await page.getByTestId('input').fill('1')
           await page.getByTestId('submit').click()
         },
-        'User submitted form with blank username': async () => {
+        'User unsuccessfully fetched post': async () => {
+          await page.getByTestId('input').fill('12345')
           await page.getByTestId('submit').click()
         },
       },

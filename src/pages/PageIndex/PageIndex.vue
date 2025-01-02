@@ -24,6 +24,7 @@ const post = computed(() => machineApp.snapshot.value.context.post)
   <LayoutBase>
     <BaseInput
       v-model="postId"
+      data-test="input"
       :activator-loading="isLoading"
       :activator-error="typeof errorMessage !== 'undefined'"
       :error-message="errorMessage"
@@ -31,6 +32,7 @@ const post = computed(() => machineApp.snapshot.value.context.post)
       placeholder="Type an id for a post to fetch from jsonplaceholder.com" />
 
     <BaseButton
+      data-test="submit"
       :activator-loading="isLoading"
       class="mb-8"
       @pointerdown="fetchPost">
@@ -38,7 +40,9 @@ const post = computed(() => machineApp.snapshot.value.context.post)
     </BaseButton>
 
     <Transition name="fade">
-      <div v-if="post">
+      <div
+        v-if="post"
+        data-test="post">
         <h2 class="text-xl">
           {{ post.title }}
         </h2>

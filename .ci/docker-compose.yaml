@@ -1,17 +1,9 @@
 services:
-  backend:
+  app:
     image: ${NODE_IMAGE}
     working_dir: /app
-    command: yarn serve
-    volumes:
-      - ../backend:/app
-
-  nginx:
-    image: ${NGINX_IMAGE}
+    command: yarn preview
     ports:
-      - 80:80
+      - 80:8000
     volumes:
-      - ../nginx/templates.ci:/etc/nginx/templates
-      - ../frontend/dist:/var/www
-    depends_on:
-      - backend
+      - ../:/app

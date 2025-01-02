@@ -37,9 +37,7 @@ jobs:
               run_id: successfulRunId,
             });
 
-            const artifactFrontendId = allArtifacts.data.artifacts.find((artifact) => artifact.name == "frontend-dist").id;
-
-            const artifactBackendId = allArtifacts.data.artifacts.find((artifact) => artifact.name == "backend-dist").id;
+            const artifactFrontendId = allArtifacts.data.artifacts.find((artifact) => artifact.name == "dist").id;
 
             const downloadFrontend = await github.rest.actions.downloadArtifact({
               owner: context.repo.owner,
@@ -48,29 +46,19 @@ jobs:
               archive_format: 'zip',
             });
 
-            const downloadBackend = await github.rest.actions.downloadArtifact({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              artifact_id: artifactBackendId,
-              archive_format: 'zip',
-            });
-
             let fs = require('fs');
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/frontend.zip`, Buffer.from(downloadFrontend.data));
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/backend.zip`, Buffer.from(downloadBackend.data));
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/dist.zip`, Buffer.from(downloadFrontend.data));
 
       - name: Unzip artifacts
         run: |
-          unzip frontend.zip -d frontend/dist
-          unzip backend.zip -d backend/dist
+          unzip dist.zip -d dist
 
       # Example of deploying to Cloudflare
-      # - name: Deploy 'frontend/dist' to Cloudflare Pages
+      # - name: Deploy 'dist' to Cloudflare Pages
       #   uses: cloudflare/pages-action@v1
       #   with:
       #       apiToken: your-token
       #       accountId: your-account-id
       #       projectName: your-project-name
-      #       workingDirectory: frontend
       #       directory: dist
       #       branch: main

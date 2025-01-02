@@ -27,16 +27,14 @@ jobs:
         run: task -d .ci init
 
       - name: Lint
-        run: task -d .ci root:lint
+        run: task -d .ci lint
 
       - name: 'Cache node_modules: check'
         uses: actions/cache/restore@v4
         id: cache-node-modules
         with:
-          path: |
-            frontend/node_modules
-            backend/node_modules
-          key: node-modules-${{ hashFiles('frontend/yarn.lock', 'backend/yarn.lock') }}
+          path: node_modules
+          key: node-modules-${{ hashFiles('yarn.lock') }}
 
       - if: steps.cache-node-modules.outputs.cache-hit != 'true'
         name: 'Cache node_modules doesn''t exist: install'
@@ -46,13 +44,11 @@ jobs:
         name: 'Cache node_modules doesn''t exist: save node_modules to cache'
         uses: actions/cache/save@v4
         with:
-          path: |
-            frontend/node_modules
-            backend/node_modules
-          key: node-modules-${{ hashFiles('frontend/yarn.lock', 'backend/yarn.lock') }}
+          path: node_modules
+          key: node-modules-${{ hashFiles('yarn.lock') }}
 
       - name: Set permissions for node_modules
-        run: sudo chmod -R 777 frontend/node_modules
+        run: sudo chmod -R 777 node_modules
 
       - name: Build 'frontend' and 'backend'
         run: task -d .ci build
@@ -63,14 +59,8 @@ jobs:
       - name: Starts testing
         run: task -d .ci test
 
-      - name: 'Uploads ''frontend/dist'' artifact'
+      - name: 'Uploads ''dist'' artifact'
         uses: actions/upload-artifact@v4
         with:
-          path: frontend/dist
-          name: frontend-dist
-
-      - name: 'Uploads ''backend/dist'' artifact'
-        uses: actions/upload-artifact@v4
-        with:
-          path: backend/dist
-          name: backend-dist
+          path: dist
+          name: dist

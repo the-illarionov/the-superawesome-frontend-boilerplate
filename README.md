@@ -47,21 +47,26 @@ Lint: [eslint](https://eslint.org/) with [custom config](./eslint.config.js) (ba
 
   ![tests](./.github/images/unit-test.png)
 
-- [Live unit-tests with UI](http://localhost:8100/__vitest__/).
+- **E2E-tests with UI**.
 
-  ![tests](./.github/images/unit-test.png)
+  Superpowerful Playwright UI running in docker, you don't need to install anything on your machine!
+
+  ![tests](./.github/images/e2e-test.png)
+
 
 - [Ready to CI/CD to Github Actions](./.github/workflows/).
 
   Test and build on `pull request` to `master`, deploy on `push` to `master`.
 
-- [Xstate](https://stately.ai/).
+- [XState](https://stately.ai/).
 
-  I am such a huge fan of it, I use it in every project. I have separate styleguide for dealing with machines [here](./src/machines/README.md).
+  ![xstate](./.github/images/xstate.png)
+
+  It's a tool that allows you to handle your logic using finite state machines which can be visualized. I am such a huge fan of it, I use it in every project. I have separate styleguide for dealing with machines [here](./src/machines/README.md).
 
   Also check how XState can own e2e-testing [here](./e2e/).
 
-  Invest your time into learning it, it's an absolute life changer.
+  Invest your time into learning it, it's an absolute game changer.
 
 ## Known issues:
 - If you encounter `ENOENT: Permission denied` error, go to `.dev/.env` and replace `USERID` with yours. 
