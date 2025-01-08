@@ -12,7 +12,6 @@ tasks:
     cmds:
       - task yarn
       - docker pull $PLAYWRIGHT_IMAGE
-      - docker pull $NGINX_IMAGE
       - docker build -t vitest-ui - < ./VitestUi.Dockerfile --build-arg NODE_IMAGE
 
   up:
