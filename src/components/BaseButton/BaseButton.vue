@@ -19,10 +19,9 @@ const props = defineProps<{
   display: block;
 
   width: 100%;
+  border: 1px solid;
 
   text-align: center;
-
-  border: 1px solid;
 
   transition: border 0.3s, background 0.3s;
 }

@@ -1,12 +1,13 @@
 /* eslint ts/no-use-before-define: 0 */
 
 import type { ApiGetPostResponse } from '@/api/types'
+import type { ActorLogicFrom, ActorOptions } from 'xstate'
 import type { MachineAppContext } from './types'
 import { Api } from '@/api'
 import { assert } from '@/utils/assert'
 import { createBrowserInspector } from '@statelyai/inspect'
 import { shallowRef } from 'vue'
-import { type ActorLogicFrom, type ActorOptions, assign, createActor, initialTransition, setup } from 'xstate'
+import { assign, createActor, initialTransition, setup } from 'xstate'
 
 const MachineApp = setup({
   types: {} as {

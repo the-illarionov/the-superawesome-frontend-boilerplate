@@ -24,5 +24,6 @@ export default {
       },
     ],
     'no-empty-source': null,
+    'at-rule-no-deprecated': null,
   },
 }
